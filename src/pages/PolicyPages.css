@@ -1,0 +1,324 @@
+/* Policy Pages Styles - White, #1A365D, #d4af37 Theme */
+.policy-page {
+  min-height: 100vh;
+  background: #fff;
+}
+
+/* Hero Section */
+.policy-hero {
+  background: linear-gradient(135deg, #1A365D 0%, #2D4A7C 100%);
+  color: white;
+  padding: clamp(3rem, 8vw, 5rem) 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.policy-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1562157873-818bc0726f68?w=1200&h=600&fit=crop') center/cover;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.policy-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.policy-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  color: white;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  opacity: 0.9;
+  color: #f8fafc;
+}
+
+/* Policy Container */
+.policy-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 20px;
+}
+
+.policy-content {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1px solid #f1f5f9;
+}
+
+/* Policy Sections */
+.policy-section {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2rem);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.policy-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.policy-section h2 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 700;
+  color: #1A365D;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  border-left: 4px solid #d4af37;
+  padding-left: 1rem;
+}
+
+.policy-text h3 {
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  font-weight: 600;
+  color: #1A365D;
+  margin: 1.5rem 0 1rem 0;
+  line-height: 1.4;
+}
+
+.policy-text h4 {
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 600;
+  color: #1A365D;
+  margin: 1.25rem 0 0.75rem 0;
+}
+
+.policy-text p {
+  color: #4a5568;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.policy-text ul {
+  color: #4a5568;
+  line-height: 1.7;
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.policy-text li {
+  margin-bottom: 0.5rem;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+}
+
+.policy-text strong {
+  color: #1A365D;
+  font-weight: 600;
+}
+
+/* Contact Information */
+.contact-info {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #d4af37;
+}
+
+.contact-info p {
+  margin-bottom: 0.75rem;
+}
+
+.contact-info p:last-child {
+  margin-bottom: 0;
+}
+
+/* Shipping Specific Styles */
+.shipping-methods {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .shipping-methods {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+.shipping-method {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.shipping-method:hover {
+  border-color: #d4af37;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.shipping-method h3 {
+  color: #1A365D;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.shipping-destinations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 480px) {
+  .shipping-destinations {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.destination-group h4 {
+  color: #1A365D;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Returns Specific Styles */
+.highlight-box {
+  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+  border: 1px solid #fde047;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.highlight-box h4 {
+  color: #1A365D;
+  margin-bottom: 1rem;
+}
+
+.return-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 768px) {
+  .return-steps {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+.return-step {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #d4af37;
+}
+
+.return-step h4 {
+  color: #1A365D;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.return-step p {
+  margin: 0;
+  color: #64748b;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 480px) {
+  .policy-container {
+    padding: 1.5rem 16px;
+  }
+  
+  .policy-content {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .policy-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  .shipping-method,
+  .return-step,
+  .contact-info {
+    padding: 1.25rem;
+  }
+  
+  .policy-text ul {
+    padding-left: 1.25rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .shipping-method:hover,
+  .return-step:hover {
+    transform: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.policy-section h2:focus,
+.policy-text h3:focus,
+.policy-text h4:focus {
+  outline: 2px solid #d4af37;
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .shipping-method,
+  .return-step {
+    transition: none;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .policy-section {
+    border-bottom-color: #1A365D;
+  }
+  
+  .shipping-method,
+  .return-step {
+    border-color: #1A365D;
+  }
+  
+  .highlight-box {
+    border-color: #1A365D;
+  }
+}
+
+/* Print styles */
+@media print {
+  .policy-hero {
+    background: #1A365D !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .policy-container {
+    padding: 1rem 0;
+  }
+  
+  .policy-content {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+}

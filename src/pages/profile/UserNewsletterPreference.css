@@ -1,0 +1,122 @@
+   :root {
+            --primary-color: #f68b1e; /* Jumia-like Orange */
+            --text-color-dark: #333333;
+            --text-color-light: #666666;
+            --border-color: #e0e0e0;
+        }
+
+     
+
+        /* Main Container - Unique Class: nl-page-container */
+        .nl-page-container {
+            background-color: #ffffff;
+            max-width: 900px;
+            width: 100%;
+            padding: 40px 0;
+            margin: 0 auto; 
+        }
+
+        /* Header Styles - Unique Class: nl-page-title */
+        .nl-page-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        /* Section Title - Unique Class: nl-section-header */
+        .nl-section-header {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color-dark);
+            margin-bottom: 20px;
+        }
+
+        /* Input Group - Unique Class: nl-input-group */
+        .nl-input-group {
+            margin-bottom: 25px;
+        }
+
+        /* Radio Option - Unique Class: nl-frequency-option */
+        .nl-frequency-option,
+        /* Checkbox Option - Unique Class: nl-policy-checkbox */
+        .nl-policy-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 35px;
+            cursor: pointer;
+        }
+
+        /* Input styling (applies to both radio and checkbox within their new parent classes) */
+        .nl-frequency-option input[type="radio"],
+        .nl-policy-checkbox input[type="checkbox"] {
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        /* Label styling */
+        .nl-frequency-option label,
+        .nl-policy-checkbox label {
+            font-size: 1.05rem;
+            color: var(--text-color-dark);
+            cursor: pointer;
+        }
+
+        /* Specific link style - Unique Class: nl-terms-link */
+        .nl-terms-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .nl-terms-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Policy Text Block - Unique Class: nl-consent-text */
+        .nl-consent-text {
+            line-height: 1.4;
+            display: block;
+        }
+
+        /* Save Button Container - Unique Class: nl-btn-wrapper */
+        .nl-btn-wrapper {
+            text-align: center;
+        }
+
+        /* Save Button Style - Unique Class: nl-save-btn */
+        .nl-save-btn {
+            width: 100%;
+            max-width: 400px; 
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            display: block;
+            margin-left: auto; /* Required for centering the block element */
+            margin-right: auto; /* Required for centering the block element */
+        }
+
+        .nl-save-btn:hover {
+            background-color: #e57d17;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .nl-save-btn:active {
+            background-color: #d17114;
+        }
+
+    

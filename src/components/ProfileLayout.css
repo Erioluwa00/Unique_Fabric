@@ -1,0 +1,45 @@
+/* MOBILE: sidebar only */
+.mobile-sidebar {
+  display: block;
+}
+
+.desktop-layout {
+  display: none;
+}
+.back-btn {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.back-btn:hover {
+  background-color: #ddd;
+}
+
+/* DESKTOP (>=768px) */
+@media (min-width: 768px) {
+
+  .mobile-sidebar {
+    display: none;
+  }
+
+  .desktop-layout {
+    display: flex;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .page-content {
+    flex: 1;
+    max-height: 50vh;
+    /* padding: 20px; */
+    /* overflow-y: auto; */
+  }
+}

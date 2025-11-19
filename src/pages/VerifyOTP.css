@@ -1,0 +1,72 @@
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa;
+  font-family: "Poppins", sans-serif;
+}
+
+.otp-card {
+  background: white;
+  padding: 2rem;
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.otp-card h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.otp-card p {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.otp-form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.otp-form-group label {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.3rem;
+}
+
+.otp-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+}
+
+.otp-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #d4af37; /* your brand purple */
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.otp-input:focus {
+  border-color: #d4af37;
+}
+.otp-btn:hover {
+  background-color: #c5a333;
+}
+
+.otp-message {
+  margin-top: 1rem;
+  color: #333;
+  font-size: 0.95rem;
+}

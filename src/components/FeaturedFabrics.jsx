@@ -1,0 +1,221 @@
+import { useContext, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { WishlistContext } from "../context/WishlistContext";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+
+
+const FeaturedFabrics = () => {
+  const { addToCart, updateQuantity, getItemQuantity } = useContext(CartContext);
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext);
+
+  const [featuredFabrics, setFeaturedFabrics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  // Fetch featured fabrics from your database
+  useEffect(() => {
+    const fetchFeaturedFabrics = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("http://localhost:5000/api/products");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const allProducts = await response.json();
+
+        // Transform the data to match your frontend structure
+        const transformedProducts = allProducts.map((product) => ({
+          id: product._id, // Use MongoDB _id as id
+          name: product.name,
+          price: product.price,
+          image: product.imageUrl, // Map imageUrl to image
+          category: product.category,
+          description: product.description,
+          inStock: product.stock > 0, // Calculate inStock from stock
+          stock: product.stock,
+          sku: product.sku,
+        }));
+
+        // Select 4 random products as featured, or use some logic to determine featured
+        const featured = transformedProducts
+          .filter((product) => product.inStock) // Only show in-stock products
+          .sort(() => 0.5 - Math.random()) // Randomize
+          .slice(0, 4); // Take first 4
+
+        setFeaturedFabrics(featured);
+        setError("");
+      } catch (err) {
+        setError("Failed to load featured fabrics");
+        console.error("Error fetching featured fabrics:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedFabrics();
+  }, []);
+
+  const handleAddToCart = (fabric) => {
+    addToCart(fabric, 1);
+  };
+
+  const handleIncrease = (fabricId) => {
+    const quantity = getItemQuantity ? getItemQuantity(fabricId) : 0;
+    updateQuantity(fabricId, quantity + 1);
+  };
+
+  const handleDecrease = (fabricId) => {
+    const quantity = getItemQuantity ? getItemQuantity(fabricId) : 0;
+    if (quantity > 1) {
+      updateQuantity(fabricId, quantity - 1);
+    } else {
+      updateQuantity(fabricId, 0);
+    }
+  };
+
+  const handleWishlist = (fabric) => {
+    if (isInWishlist(fabric.id)) {
+      removeFromWishlist(fabric.id);
+    } else {
+      addToWishlist(fabric);
+    }
+  };
+
+  if (loading) {
+    return (
+      <section className="featured-fabrics">
+        <div className="container">
+          <div className="ffabric-header">
+            <h2>Featured Fabrics</h2>
+            <p>Handpicked selections from our premium collection</p>
+          </div>
+          <div className="loading">Loading featured fabrics...</div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="featured-fabrics">
+        <div className="container">
+          <div className="ffabric-header">
+            <h2>Featured Fabrics</h2>
+            <p>Handpicked selections from our premium collection</p>
+          </div>
+          <div className="error-message">{error}</div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="featured-fabrics">
+      <div className="container">
+        <div className="ffabric-header">
+          <h2>Featured Fabrics</h2>
+          <p>Handpicked selections from our premium collection</p>
+        </div>
+
+        <div className="fabrics-grid">
+          {featuredFabrics.map((fabric) => {
+            const quantity = getItemQuantity ? getItemQuantity(fabric.id) : 0;
+            const inWishlist = isInWishlist(fabric.id);
+
+            return (
+              <div key={fabric.id} className="fabric-card">
+                <div className="fabric-image">
+                  <img
+                    src={fabric.image || "/placeholder.svg"}
+                    alt={fabric.name}
+                    onError={(e) => {
+                      e.target.src = "/placeholder.svg";
+                    }}
+                  />
+                  <div className="fabric-overlay">
+                    <button
+                      className="home-wishlist-btn"
+                      onClick={() => handleWishlist(fabric)}
+                      title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+                    >
+                      {inWishlist ? "❤️" : "🤍"}
+                    </button>
+                    <Link to={`/product/${fabric.id}`} className="quick-view">
+                      Quick View
+                    </Link>
+                  </div>
+                  {!fabric.inStock && (
+                    <div className="out-of-stock">Out of Stock</div>
+                  )}
+                </div>
+
+                <div className="fabric-info">
+                  <div className="fabric-category">{fabric.category}</div>
+                  <h3 className="fabric-name">{fabric.name}</h3>
+                  <p className="fabric-description">{fabric.description}</p>
+                  <div className="fabric-price">${fabric.price}/yard</div>
+
+                  <div className="fabric-actions">
+                    {fabric.inStock ? (
+                      quantity > 0 ? (
+                        <div className="quantity-controls-home">
+                          <button 
+                            className="qty-btn-home" 
+                            onClick={() => handleDecrease(fabric.id)}
+                          >
+                            -
+                          </button>
+                          <span className="qty-value-home">{quantity}</span>
+                          <button 
+                            className="qty-btn-home" 
+                            onClick={() => handleIncrease(fabric.id)}
+                          >
+                            +
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleAddToCart(fabric)}
+                        >
+                          Add to Cart
+                        </button>
+                      )
+                    ) : (
+                      <button className="btn btn-disabled" disabled>
+                        Out of Stock
+                      </button>
+                    )}
+                    <Link
+                      to={`/product/${fabric.id}`}
+                      className="btn ffabric-outline"
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {featuredFabrics.length === 0 && !loading && (
+          <div className="no-products">
+            <p>No featured fabrics available at the moment.</p>
+          </div>
+        )}
+
+        <div className="section-footer">
+          <Link to="/shop" className="btn btn-secondary">
+            View All Fabrics
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedFabrics;
