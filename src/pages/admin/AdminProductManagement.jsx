@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./AdminProductManagement.css";
+
 const API_URL = "http://localhost:5000/api/products";
+const CLOUDINARY_UPLOAD_PRESET = "Unique_Fabric"; 
+const CLOUDINARY_CLOUD_NAME = "dy8mxgqzy";
 
 const AdminProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -45,7 +48,6 @@ const AdminProductManagement = () => {
       setError("");
     } catch (err) {
       setError("Failed to load products: " + err.message);
-      console.error("Error fetching products:", err);
     } finally {
       setLoading(false);
     }
@@ -117,7 +119,6 @@ const AdminProductManagement = () => {
       setShowAddModal(false);
     } catch (err) {
       setError("Failed to add product: " + err.message);
-      console.error("Error adding product:", err);
     }
   };
 
@@ -146,7 +147,6 @@ const AdminProductManagement = () => {
       setSelectedProduct(null);
     } catch (err) {
       setError("Failed to update product: " + err.message);
-      console.error("Error updating product:", err);
     }
   };
 
@@ -164,7 +164,6 @@ const AdminProductManagement = () => {
         setProducts(products.filter((p) => p._id !== productId));
       } catch (err) {
         setError("Failed to delete product: " + err.message);
-        console.error("Error deleting product:", err);
       }
     }
   };
@@ -327,7 +326,7 @@ const AdminProductManagement = () => {
   );
 };
 
-// Simplified ProductModal with essential fields first
+// ProductModal Component with Cloudinary Upload
 const ProductModal = ({ title, product, onSave, onClose, categories }) => {
   const [formData, setFormData] = useState({
     // Basic Information
@@ -345,7 +344,7 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
     color: product?.color || "",
     texture: product?.texture || "",
     
-    // Features (simple text area for now)
+    // Features
     features: product?.features?.join(", ") || "",
     suitableFor: product?.suitableFor?.join(", ") || "",
     
@@ -353,9 +352,15 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
     fabricWeight: product?.specifications?.fabricWeight || "",
     composition: product?.specifications?.composition || "",
     careInstructions: product?.specifications?.careInstructions || "",
+    width: product?.specifications?.width || "",
+    origin: product?.specifications?.origin || "",
+    stretch: product?.specifications?.stretch || "",
+    opacity: product?.specifications?.opacity || "",
   });
 
-  const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(product?.imageUrl || "");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -365,11 +370,71 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
     });
   };
 
+  // Handle file selection and preview
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+
+      // Validate file size (5MB max)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size should be less than 5MB');
+        return;
+      }
+
+      setImageFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+
+      // Clear the URL input when file is selected
+      setFormData(prev => ({ ...prev, imageUrl: "" }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSaving(true);
+    setUploading(true);
     
     try {
+      let imageUrl = formData.imageUrl;
+      
+      // Upload new image if a file was selected
+      if (imageFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('file', imageFile);
+        uploadFormData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        uploadFormData.append('cloud_name', CLOUDINARY_CLOUD_NAME);
+
+        const uploadResponse = await fetch(
+          `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
+          {
+            method: 'POST',
+            body: uploadFormData,
+          }
+        );
+
+        if (!uploadResponse.ok) {
+          throw new Error('Image upload failed');
+        }
+
+        const uploadData = await uploadResponse.json();
+        imageUrl = uploadData.secure_url;
+      }
+
+      // Validate that we have an image
+      if (!imageUrl && !product?.imageUrl) {
+        throw new Error('Please upload an image or provide an image URL');
+      }
+
       // Process the form data for API
       const productData = {
         name: formData.name,
@@ -378,7 +443,7 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
         stock: Number.parseInt(formData.stock),
         description: formData.description,
         sku: formData.sku,
-        imageUrl: formData.imageUrl,
+        imageUrl: imageUrl || product?.imageUrl,
         color: formData.color,
         texture: formData.texture,
         features: formData.features ? formData.features.split(',').map(f => f.trim()).filter(f => f) : [],
@@ -387,15 +452,25 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
           fabricWeight: formData.fabricWeight,
           composition: formData.composition,
           careInstructions: formData.careInstructions,
+          width: formData.width,
+          origin: formData.origin,
+          stretch: formData.stretch,
+          opacity: formData.opacity,
         }
       };
       
       await onSave(productData);
     } catch (error) {
-      console.error("Error in form submission:", error);
+      alert("Error: " + error.message);
     } finally {
-      setSaving(false);
+      setUploading(false);
     }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview("");
+    setFormData(prev => ({ ...prev, imageUrl: "" }));
   };
 
   return (
@@ -493,17 +568,54 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
             </div>
           </div>
 
-          {/* Images */}
+          {/* Images Section with Cloudinary Upload */}
           <div className="form-section">
-            <h4>Images</h4>
+            <h4>Product Image</h4>
+            
+            {/* Image Preview */}
+            {(imagePreview || product?.imageUrl) && (
+              <div className="image-preview-container">
+                <img 
+                  src={imagePreview || product?.imageUrl} 
+                  alt="Preview" 
+                  className="image-preview"
+                />
+                <button 
+                  type="button" 
+                  className="remove-image-btn"
+                  onClick={removeImage}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
+
+            {/* File Upload */}
             <div className="form-group">
-              <label>Main Image URL *</label>
+              <label>Upload Image from Device</label>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleFileChange}
+                disabled={uploading}
+              />
+              <small style={{ color: '#6b7280', fontSize: '12px' }}>
+                {uploading ? 'Uploading to Cloudinary...' : 'Supported: JPG, PNG, WebP. Max 5MB'}
+              </small>
+            </div>
+
+            <div className="form-divider">OR</div>
+
+            {/* URL Input (fallback) */}
+            <div className="form-group">
+              <label>Enter Image URL</label>
               <input 
                 type="url" 
                 name="imageUrl" 
                 value={formData.imageUrl} 
-                onChange={handleChange} 
-                required 
+                onChange={handleChange}
+                placeholder="https://example.com/image.jpg"
+                disabled={!!imageFile}
               />
             </div>
           </div>
@@ -533,7 +645,7 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
             </div>
           </div>
 
-          {/* Basic Specifications */}
+          {/* Specifications */}
           <div className="form-section">
             <h4>Specifications</h4>
             <div className="form-row">
@@ -548,6 +660,19 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
                 />
               </div>
               <div className="form-group">
+                <label>Width</label>
+                <input 
+                  type="text" 
+                  name="width" 
+                  value={formData.width} 
+                  onChange={handleChange} 
+                  placeholder="45 inches"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
                 <label>Composition</label>
                 <input 
                   type="text" 
@@ -555,6 +680,39 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
                   value={formData.composition} 
                   onChange={handleChange} 
                   placeholder="100% Mulberry Silk"
+                />
+              </div>
+              <div className="form-group">
+                <label>Origin</label>
+                <input 
+                  type="text" 
+                  name="origin" 
+                  value={formData.origin} 
+                  onChange={handleChange} 
+                  placeholder="Italy"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label>Stretch</label>
+                <input 
+                  type="text" 
+                  name="stretch" 
+                  value={formData.stretch} 
+                  onChange={handleChange} 
+                  placeholder="None"
+                />
+              </div>
+              <div className="form-group">
+                <label>Opacity</label>
+                <input 
+                  type="text" 
+                  name="opacity" 
+                  value={formData.opacity} 
+                  onChange={handleChange} 
+                  placeholder="Opaque"
                 />
               </div>
             </div>
@@ -572,11 +730,11 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
           </div>
 
           <div className="modal-actions">
-            <button type="button" className="cancel-btn" onClick={onClose} disabled={saving}>
+            <button type="button" className="cancel-btn" onClick={onClose} disabled={uploading}>
               Cancel
             </button>
-            <button type="submit" className="save-btn" disabled={saving}>
-              {saving ? "Saving..." : (product ? "Update" : "Add") + " Product"}
+            <button type="submit" className="save-btn" disabled={uploading}>
+              {uploading ? "Uploading..." : (product ? "Update" : "Add") + " Product"}
             </button>
           </div>
         </form>
@@ -586,14 +744,3 @@ const ProductModal = ({ title, product, onSave, onClose, categories }) => {
 };
 
 export default AdminProductManagement;
-
-
-
-// Im trying to make my Ecommerce website work I'm using MongoDB a my Database and nodeJS for backend while react for frontend
-
-// Now what i want is for my AdminProductManagement to show the products from the database and should also be able to do CRUD fom the website which will reflect on the database also
-// Secondly, for the User page, I want my Shop page, i want it to show product that's on the database.
-
-// Now I'll attach the code to them below:
-
-// AdminProductManagement.jsx:
