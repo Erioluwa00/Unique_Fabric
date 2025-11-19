@@ -1,0 +1,255 @@
+    :root {
+            --fsg-primary-color: #3f51b5; /* Indigo Blue */
+            --fsg-accent-color: #ffc107; /* Amber Yellow */
+            --fsg-text-dark: #212529;
+            --fsg-text-light: #6c757d;
+            --fsg-background-light: #f8f9fa;
+            --fsg-card-background: #ffffff;
+            --fsg-border-color: #e9ecef;
+        }
+
+        /* --- Global Reset and Body Styles --- */
+        /* * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--fsg-background-light);
+            color: var(--fsg-text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px 0;
+        } */
+
+        /* --- Page Container --- */
+        .fsg-page-container {
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--fsg-card-background);
+            border-radius: 8px;
+            /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
+        }
+
+        /* --- Header Styles --- */
+        .fsg-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            margin-top: 90px;
+            border-bottom: 1px solid var(--fsg-border-color);
+        }
+
+        .fsg-main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--fsg-primary-color);
+            margin-bottom: 10px;
+        }
+
+        .fsg-subtitle {
+            font-size: 1.1rem;
+            color: var(--fsg-text-light);
+        }
+
+        /* --- Measurement Guide Section --- */
+        .fsg-guide-section {
+            margin-bottom: 40px;
+        }
+
+        .fsg-guide-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--fsg-primary-color);
+            border-left: 4px solid var(--fsg-accent-color);
+            padding-left: 10px;
+        }
+
+        /* Using Flexbox for measurement steps layout */
+        .fsg-measure-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .fsg-step-item {
+            background-color: var(--fsg-background-light);
+            flex: 1 1 300px; /* Responsive resizing for three columns, will wrap if more than three fit */
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--fsg-border-color);
+        }
+
+        .fsg-step-item h4 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--fsg-text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .fsg-step-item p {
+            font-size: 0.95rem;
+            color: var(--fsg-text-light);
+        }
+
+        /* --- Size Chart Section --- */
+        .fsg-chart-section {
+            margin-top: 100px;
+        }
+        
+        /* Tabs Navigation */
+        .fsg-tabs-nav {
+            display: flex;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--fsg-border-color);
+            margin-bottom: 20px;
+        }
+        
+        .fsg-tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--fsg-text-light);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-bottom-color 0.3s;
+            margin-right: 5px;
+            white-space: nowrap; /* Prevent tab titles from wrapping */
+        }
+        
+        .fsg-tab-button:hover {
+            color: var(--fsg-text-dark);
+        }
+
+        .fsg-tab-button.active {
+            color: var(--fsg-primary-color);
+            border-bottom-color: var(--fsg-primary-color);
+            font-weight: 700;
+        }
+
+        /* Chart Content Panels */
+        .fsg-chart-panel {
+            display: none;
+            padding: 15px 0;
+            overflow-x: auto; /* Allows horizontal scrolling on small screens for the table */
+        }
+
+        .fsg-chart-panel.visible {
+            display: block;
+        }
+
+        /* Size Table Styling */
+        .fsg-size-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 650px; /* Ensures table is readable on small screens */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        
+        .fsg-size-table th, .fsg-size-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid var(--fsg-border-color);
+        }
+
+        .fsg-size-table thead .fsg-table-header {
+            background-color: var(--fsg-primary-color);
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .fsg-size-table tbody .fsg-table-row:nth-child(even) {
+            background-color: var(--fsg-background-light);
+        }
+
+        .fsg-size-table tbody .fsg-table-row:hover {
+            background-color: #e9eef6;
+        }
+        
+        .fsg-size-table tbody .fsg-table-data:first-child {
+            font-weight: 500;
+            color: var(--fsg-primary-color);
+        }
+        
+        /* --- Extra Content Section (New) --- */
+        .fsg-extra-content-section {
+            margin-top: 100px;
+            padding-top: 30px;
+            border-top: 1px dashed var(--fsg-border-color);
+        }
+        
+        .fsg-extra-content-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: var(--fsg-primary-color);
+        }
+        
+        .fsg-tip-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .fsg-tip-item {
+            background-color: #ffffff;
+            padding: 15px;
+            border-left: 4px solid var(--fsg-accent-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .fsg-tip-item h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--fsg-text-dark);
+        }
+        
+        .fsg-tip-item p {
+            font-size: 0.9rem;
+            color: var(--fsg-text-light);
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 768px) {
+            .fsg-page-container {
+                padding: 15px;
+            }
+            
+            .fsg-main-title {
+                font-size: 1.8rem;
+            }
+
+            .fsg-measure-steps {
+                flex-direction: column;
+            }
+            
+            /* Tabs will wrap to a new line on smaller screens if necessary, which is handled by flex-wrap */
+        }
+        
+        @media (max-width: 480px) {
+            .fsg-main-title {
+                font-size: 1.5rem;
+            }
+            .fsg-guide-title {
+                font-size: 1.3rem;
+            }
+            .fsg-tip-list {
+                grid-template-columns: 1fr;
+            }
+        }

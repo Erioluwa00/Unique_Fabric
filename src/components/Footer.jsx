@@ -163,10 +163,12 @@ const Footer = () => {
                 <Link to="/returns-exchanges">Returns & Exchanges</Link>
               </li>
               <li>
-                <a href="#size-guide">Size Guide</a>
+                <Link to="/sizeGuide">Size Guide</Link>
+                {/* <a href="#size-guide">Size Guide</a> */}
               </li>
               <li>
-                <a href="#care">Fabric Care</a>
+                <Link to="/fabricCare">Fabric Care</Link>
+                {/* <a href="#care">Fabric Care</a> */}
               </li>
               <li>
                 <Link to="/faq">FAQ</Link>

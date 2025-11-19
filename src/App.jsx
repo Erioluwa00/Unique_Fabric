@@ -55,6 +55,8 @@ import UserEditProfile from "./pages/profile/UserEditProfile";
 import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
 import LookbookDetails from "./pages/LookbookDetails";
 import ProfileLayout from "./components/ProfileLayout";import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
+import FabricCare from "./pages/FabricCare";
+import SizeGuide from "./pages/SizeGuide";
 33
 // Helper component for layout control
 function AppContent() {
@@ -87,12 +89,15 @@ function AppContent() {
           <Route path="/cookie-policy" element={<CookiePolicy />} />
           <Route path="/shipping-info" element={<ShippingInfo />} />
           <Route path="/returns-exchanges" element={<ReturnsExchanges />} />
+          <Route path="/fabricCare" element={<FabricCare />} />
+          <Route path="/sizeGuide" element={<SizeGuide />} />
+
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-page" element={<OrderPage />} />
           <Route path="/wishlist" element={<Wishlist />} />
-          {/* <Route path="/error-404" element={<NotFoundPage />} /> */}
+          <Route path="/error-404" element={<NotFoundPage />} />
           <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
