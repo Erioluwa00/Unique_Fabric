@@ -37,17 +37,6 @@ const ProfileSidebar = ({ onLinkClick }) => {
           </li>
           <li>
             <NavLink
-              to="/userOrders"
-              className={({ isActive }) =>
-                isActive ? "up-link active" : "up-link"
-              }
-               onClick={onLinkClick}
-            >
-              <FaBox className="icon" /> Orders
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
               to="/userPendingReviews"
               className={({ isActive }) =>
                 isActive ? "up-link active" : "up-link"
@@ -66,17 +55,6 @@ const ProfileSidebar = ({ onLinkClick }) => {
                onClick={onLinkClick}
             >
               <FaGift className="icon" /> Edit Profile
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/userWishlist"
-              className={({ isActive }) =>
-                isActive ? "up-link active" : "up-link"
-              }
-               onClick={onLinkClick}
-            >
-              <FaHeart className="icon" /> Wishlist
             </NavLink>
           </li>
           <li>

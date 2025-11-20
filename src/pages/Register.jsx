@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { register } = useContext(AuthContext)
   const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" })
   const [error, setError] = useState("")
@@ -25,7 +26,7 @@ const Register = () => {
     const result = await register(form.name, form.email, form.password)
     if (result.success) {
       setError("")
-      navigate("/shop") // redirect after successful register
+      navigate("/shop")
     } else {
       setError(result.error || "Registration failed. Please try again.")
     }
@@ -60,50 +61,40 @@ const Register = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group password-input-container">
             <label>Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-            <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    style={{
-                      position: "absolute",
-                      right: "796px",
-                      top: "51.5%",
-                      transform: "translateY(-50%)",
-                      cursor: "pointer",
-                      color: "grey",
-                    }}
-                  >
-                    {showPassword ? <FaEye /> : <FaEyeSlash />}
-                  </span>
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                required
+              />
+              <span
+                className="password-toggle-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
 
-          <div className="form-group">
+          <div className="form-group password-input-container">
             <label>Confirm Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              value={form.confirmPassword}
-              onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-              required
-            />
+            <div className="password-input-wrapper">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                value={form.confirmPassword}
+                onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+                required
+              />
               <span
-        onClick={() => setShowPassword(!showPassword)}
-        style={{
-          position: "absolute",
-          right: "796px",
-          top: "62.5%",
-          transform: "translateY(-50%)",
-          cursor: "pointer",
-          color: "grey",
-        }}
-      >
-        {showPassword ? <FaEye /> : <FaEyeSlash />}
-      </span>
+                className="password-toggle-icon"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
 
           <button type="submit" className="btn btn-primary">Register</button>

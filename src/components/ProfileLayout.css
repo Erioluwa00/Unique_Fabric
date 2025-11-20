@@ -1,45 +1,118 @@
-/* MOBILE: sidebar only */
-.mobile-sidebar {
-  display: block;
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa;
 }
 
-.desktop-layout {
-  display: none;
+/* MOBILE VIEW */
+.mobile-sidebar {
+  width: 100%;
+  min-height: 100vh;
+  background: white;
 }
+
+.mobile-content {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 20px;
+}
+
 .back-btn {
-  margin: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  background-color: #eee;
+  background: #667eea;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
   cursor: pointer;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s ease;
 }
 
 .back-btn:hover {
-  background-color: #ddd;
+  background: #5a6fd8;
 }
 
-/* DESKTOP (>=768px) */
-@media (min-width: 768px) {
+/* DESKTOP VIEW */
+.desktop-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
 
+.up-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Sidebar takes fixed width */
+.up-sidebar {
+  width: 280px;
+  min-width: 280px;
+  flex-shrink: 0;
+}
+
+/* Main content takes remaining space */
+.page-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .desktop-layout {
+    display: none;
+  }
+  
+  .mobile-sidebar {
+    display: block;
+  }
+  
+  .page-content {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) {
   .mobile-sidebar {
     display: none;
   }
-
+  
   .desktop-layout {
     display: flex;
-    height: 100vh;
   }
+}
 
-  .sidebar {
-    width: 250px;
-  }
-
+/* Large screens optimization */
+@media (min-width: 1200px) {
   .page-content {
-    flex: 1;
-    max-height: 50vh;
-    /* padding: 20px; */
-    /* overflow-y: auto; */
+    padding: 40px;
   }
+  
+  .up-sidebar {
+    width: 300px;
+  }
+}
+
+/* Smooth transitions */
+.layout {
+  transition: all 0.3s ease;
+}
+
+/* Ensure no horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -11,7 +11,6 @@ const Login = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
 
-  // Updated handleSubmit to redirect based on user role
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.email || !form.password) {
@@ -25,9 +24,9 @@ const Login = () => {
 
       // Redirect based on user role
       if (result.user.isAdmin) {
-        navigate("/admin") // Redirect to admin dashboard
+        navigate("/admin")
       } else {
-        navigate("/shop") // Redirect to regular user page
+        navigate("/shop")
       }
     } else {
       setError(result.error || "Login failed. Please try again.")
@@ -54,39 +53,34 @@ const Login = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group password-input-container">
             <label>Password</label>
-            <input
-              type="password"
-              autoComplete="current-password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-            <span
-        onClick={() => setShowPassword(!showPassword)}
-        style={{
-          position: "absolute",
-          right: "796px",
-          top: "49%",
-          transform: "translateY(-50%)",
-          cursor: "pointer",
-          // color: "black",
-        }}
-      >
-        {showPassword ? <FaEye /> : <FaEyeSlash />}
-      </span>
+            <div className="password-input-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                autoComplete="current-password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                required
+              />
+              <span
+                className="password-toggle-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
-           <p className="forgotten-password-switch">
-          Forgotten your password? <Link to="/forgot-password">Reset password</Link>
-        </p>
+          
+          <p className="forgotten-password-switch">
+            Forgotten your password? <Link to="/forgot-password">Reset password</Link>
+          </p>
           <button type="submit" className="btn btn-primary">Login</button>
         </form>
 
         <p className="auth-switch">
-          Don’t have an account? <Link to="/register">Register</Link>
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
-       
       </div>
     </div>
   )
