@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, useLocation,} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, useMatch } from "react-router-dom";
 import "./App.css";
 import './components/Components.css';
 
@@ -28,6 +28,18 @@ import NotFoundPage from "./pages/NotFoundPage";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOTP from "./pages/VerifyOTP";
+import ResetPassword from "./pages/ResetPassword";
+import UserProfile from "./pages/profile/UserProfile";
+import UserOrders from "./pages/profile/UserOrders";
+import UserPendingReviews from "./pages/profile/UserPendingReviews";
+import UserEditProfile from "./pages/profile/UserEditProfile";
+import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
+import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
+import LookbookDetails from "./pages/LookbookDetails";
+import FabricCare from "./pages/FabricCare";
+import SizeGuide from "./pages/SizeGuide";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -43,27 +55,26 @@ import { WishlistProvider } from "./context/WishlistContext";
 
 // Layouts & Protection
 import AdminLayout from "./layouts/AdminLayout";
-import ProtectedRoute from "./pages/admin/ProtectedRoute"; 
+import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import ScrollToTop from "./pages/ScrollToTop";
-import ForgotPassword from "./pages/ForgotPassword";
-import VerifyOTP from "./pages/VerifyOTP";
-import ResetPassword from "./pages/ResetPassword";
-import UserProfile from "./pages/profile/UserProfile";
-import UserOrders from "./pages/profile/UserOrders";
-import UserPendingReviews from "./pages/profile/UserPendingReviews";
-import UserEditProfile from "./pages/profile/UserEditProfile";
-import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
-import LookbookDetails from "./pages/LookbookDetails";
-import ProfileLayout from "./components/ProfileLayout";import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
-import FabricCare from "./pages/FabricCare";
-import SizeGuide from "./pages/SizeGuide";
-33
+import ProfileLayout from "./components/ProfileLayout";
+
+
 // Helper component for layout control
 function AppContent() {
   const location = useLocation();
   const { pathname } = location;
 
+  // Detect if current route is the catch-all 404 (“*”) route
+  const isCatchAll404 = useMatch("*") && pathname !== "/" && pathname !== "/shop";
+
+  // Hide header/footer on:
+  // - catch-all 404
+  // - /error-404
+  // - login/register/auth pages
+  // - admin pages
   const shouldHideLayout =
+    isCatchAll404 ||
     pathname === "/error-404" ||
     pathname === "/login" ||
     pathname === "/register" ||
@@ -75,6 +86,7 @@ function AppContent() {
   return (
     <div className="App">
       {!shouldHideLayout && <Header />}
+      
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -104,21 +116,21 @@ function AppContent() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verifyOTP" element={<VerifyOTP />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-         <Route path="/lookbookDetails" element={<LookbookDetails />} />
+          <Route path="/lookbookDetails" element={<LookbookDetails />} />
 
-            <Route element={<ProfileLayout/>}>
-               <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/userOrders" element={<UserOrders />} />
-          <Route path="/userPendingReviews" element={<UserPendingReviews />} />
-          <Route path="/userEditProfile" element={<UserEditProfile />} />
-          <Route path="/userPreviousOrders" element={<UserPreviousOrders />} />
-           <Route path="/userNewsletter" element={<UserNewsletterPreference />} />
-            </Route>
+          {/* Profile Layout Group */}
+          <Route element={<ProfileLayout />}>
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/userOrders" element={<UserOrders />} />
+            <Route path="/userPendingReviews" element={<UserPendingReviews />} />
+            <Route path="/userEditProfile" element={<UserEditProfile />} />
+            <Route path="/userPreviousOrders" element={<UserPreviousOrders />} />
+            <Route path="/userNewsletter" element={<UserNewsletterPreference />} />
+          </Route>
 
-
-          {/* Protected Admin Pages */}
-          <Route 
-            path="/admin/*" 
+          {/* Admin Protected Routes */}
+          <Route
+            path="/admin/*"
             element={
               <ProtectedRoute requireAdmin={true}>
                 <AdminLayout />
@@ -132,10 +144,11 @@ function AppContent() {
             <Route path="settings" element={<AdminSettings />} />
           </Route>
 
-          {/* 404 Catch All */}
+          {/* Catch-all 404 */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
+
       {!shouldHideLayout && <Footer />}
     </div>
   );
@@ -147,7 +160,7 @@ function App() {
       <CartProvider>
         <WishlistProvider>
           <Router>
-            <ScrollToTop/>
+            <ScrollToTop />
             <AppContent />
           </Router>
         </WishlistProvider>

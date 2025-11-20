@@ -2,16 +2,19 @@ import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-
+import { FaHeart, FaRegHeart, FaTimes } from "react-icons/fa";
 
 const FeaturedFabrics = () => {
-  const { addToCart, updateQuantity, getItemQuantity } = useContext(CartContext);
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext);
+  const { addToCart, updateQuantity, getItemQuantity } =
+    useContext(CartContext);
+  const { addToWishlist, removeFromWishlist, isInWishlist } =
+    useContext(WishlistContext);
 
   const [featuredFabrics, setFeaturedFabrics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedFabric, setSelectedFabric] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Fetch featured fabrics from your database
   useEffect(() => {
@@ -84,6 +87,44 @@ const FeaturedFabrics = () => {
     }
   };
 
+  const openQuickView = (fabric) => {
+    setSelectedFabric(fabric);
+    setIsModalOpen(true);
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeQuickView = () => {
+    setIsModalOpen(false);
+    setSelectedFabric(null);
+    // Restore body scroll
+    document.body.style.overflow = "unset";
+  };
+
+  // Close modal when clicking outside
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      closeQuickView();
+    }
+  };
+
+  // Close modal with Escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === "Escape") {
+        closeQuickView();
+      }
+    };
+
+    if (isModalOpen) {
+      document.addEventListener("keydown", handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isModalOpen]);
+
   if (loading) {
     return (
       <section className="featured-fabrics">
@@ -139,13 +180,18 @@ const FeaturedFabrics = () => {
                     <button
                       className="home-wishlist-btn"
                       onClick={() => handleWishlist(fabric)}
-                      title={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+                      title={
+                        inWishlist ? "Remove from wishlist" : "Add to wishlist"
+                      }
                     >
                       {inWishlist ? "❤️" : "🤍"}
                     </button>
-                    <Link to={`/product/${fabric.id}`} className="quick-view">
+                    <button
+                      className="quick-view"
+                      onClick={() => openQuickView(fabric)}
+                    >
                       Quick View
-                    </Link>
+                    </button>
                   </div>
                   {!fabric.inStock && (
                     <div className="out-of-stock">Out of Stock</div>
@@ -162,15 +208,15 @@ const FeaturedFabrics = () => {
                     {fabric.inStock ? (
                       quantity > 0 ? (
                         <div className="quantity-controls-home">
-                          <button 
-                            className="qty-btn-home" 
+                          <button
+                            className="qty-btn-home"
                             onClick={() => handleDecrease(fabric.id)}
                           >
                             -
                           </button>
                           <span className="qty-value-home">{quantity}</span>
-                          <button 
-                            className="qty-btn-home" 
+                          <button
+                            className="qty-btn-home"
                             onClick={() => handleIncrease(fabric.id)}
                           >
                             +
@@ -214,6 +260,88 @@ const FeaturedFabrics = () => {
           </Link>
         </div>
       </div>
+
+      {/* Quick View Modal */}
+      {isModalOpen && selectedFabric && (
+        <div className="modal-backdrop" onClick={handleBackdropClick}>
+          <div className="quick-view-modal">
+            <button className="modal-close-btn" onClick={closeQuickView}>
+              <FaTimes />
+            </button>
+
+            <div className="modal-content">
+              <div className="modal-image">
+                <img
+                  src={selectedFabric.image || "/placeholder.svg"}
+                  alt={selectedFabric.name}
+                  onError={(e) => {
+                    e.target.src = "/placeholder.svg";
+                  }}
+                />
+              </div>
+
+              <div className="modal-details">
+                <div className="modal-category">{selectedFabric.category}</div>
+                <h2 className="modal-title">{selectedFabric.name}</h2>
+                <div className="modal-price">${selectedFabric.price}/yard</div>
+
+                <div className="modal-description">
+                  <p>{selectedFabric.description}</p>
+                </div>
+
+                <div className="modal-specs">
+                  <div className="spec-item">
+                    <span className="spec-label">SKU:</span>
+                    <span className="spec-value">{selectedFabric.sku}</span>
+                  </div>
+                  <br />
+                  <div className="spec-item">
+                    <span className="spec-label">Stock:</span>
+                    <span
+                      className={`spec-value ${
+                        selectedFabric.inStock ? "in-stock" : "out-of-stock"
+                      }`}
+                    >
+                      {selectedFabric.inStock
+                        ? `${selectedFabric.stock} yards available`
+                        : "Out of Stock"}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="modal-actions">
+                  {selectedFabric.inStock ? (
+                    <div className="modal-action-buttons">
+                      <button
+                        className="btn btn-primary modal-add-to-cart"
+                        onClick={() => {
+                          handleAddToCart(selectedFabric);
+                          closeQuickView();
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+                      <button
+                        className="btn ffabric-outline modal-view-details"
+                        onClick={() => {
+                          closeQuickView();
+                          window.location.href = `/product/${selectedFabric.id}`;
+                        }}
+                      >
+                        View Full Details
+                      </button>
+                    </div>
+                  ) : (
+                    <button className="btn btn-disabled" disabled>
+                      Out of Stock
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
