@@ -57,9 +57,23 @@ import { WishlistProvider } from "./context/WishlistContext";
 import AdminLayout from "./layouts/AdminLayout";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import ScrollToTop from "./pages/ScrollToTop";
-import ProfileLayout from "./components/ProfileLayout";
+// import ProfileLayout from "./components/ProfileLayout";
 
 
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOTP from "./pages/VerifyOTP";
+import ResetPassword from "./pages/ResetPassword";
+import UserProfile from "./pages/profile/UserProfile";
+import UserOrders from "./pages/profile/UserOrders";
+import UserPendingReviews from "./pages/profile/UserPendingReviews";
+import UserEditProfile from "./pages/profile/UserEditProfile";
+import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
+import LookbookDetails from "./pages/LookbookDetails";
+import ProfileLayout from "./components/ProfileLayout";import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
+import FabricCare from "./pages/FabricCare";
+import SizeGuide from "./pages/SizeGuide";
+import AdminFullContactMessages from "./pages/admin/AdminFullContactMessages";
+33
 // Helper component for layout control
 function AppContent() {
   const location = useLocation();
@@ -142,9 +156,10 @@ function AppContent() {
             <Route path="orders" element={<AdminOrder />} />
             <Route path="reports" element={<AdminReports />} />
             <Route path="settings" element={<AdminSettings />} />
+              <Route path="adminFullContactMessages" element={<AdminFullContactMessages />} />
           </Route>
-
-          {/* Catch-all 404 */}
+          
+          {/* 404 Catch All */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
