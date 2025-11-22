@@ -13,7 +13,7 @@ const LookBook = () => {
     { id: "men", name: "Men Styles" },
     { id: "kids", name: "Kid Styles" },
     { id: "couples", name: "Couple Styles" },
-    { id: "occasion", name: "Ocacasions" },
+    { id: "occasion", name: "Occasions" },
     { id: "pattern", name: "Fabric Pattern" }
   ];
 
