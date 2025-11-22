@@ -810,3 +810,52 @@
   outline: 2px solid #d4af37;
   outline-offset: 2px;
 }
+
+
+/* Fix for Lookbook CTA buttons */
+.lookbook-cta .cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.lookbook-cta .cta-buttons .btn {
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 140px;
+}
+
+/* Specific fix for Get Inspired button border */
+.lookbook-cta .btn-outline {
+  background: transparent !important;
+  border: 2px solid #d4af37 !important;
+  color: #d4af37 !important;
+}
+
+.lookbook-cta .btn-outline:hover {
+  background: #d4af37 !important;
+  color: #fff !important;
+  border: 2px solid #d4af37 !important;
+}
+
+.lookbook-cta .btn-primary {
+  background: #d4af37 !important;
+  color: #1A365D !important;
+  border: 2px solid #d4af37 !important;
+}
+
+.lookbook-cta .btn-primary:hover {
+  background: #b8941f !important;
+  border-color: #b8941f !important;
+}
