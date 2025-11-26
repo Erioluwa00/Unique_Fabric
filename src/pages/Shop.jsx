@@ -21,6 +21,10 @@ const Shop = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(12);
 
   // Fetch products from API
   useEffect(() => {
@@ -83,7 +87,53 @@ const Shop = () => {
     });
 
     setFilteredProducts(filtered);
+    // Reset to first page when filters change
+    setCurrentPage(1);
   }, [products, filters, sortBy]);
+
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [currentPage]);
+
+  // Pagination logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  // Change page with scroll to top
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    // Scroll to top immediately when page changes
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  // Generate page numbers for pagination
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxPagesToShow = 5;
+    
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+    // Adjust start page if we're near the end
+    if (endPage - startPage + 1 < maxPagesToShow) {
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+    
+    return pageNumbers;
+  };
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -175,20 +225,60 @@ const Shop = () => {
               <div className="products-section">
                 <div className="products-header">
                   <div className="results-info">
-                    <span>{filteredProducts.length} products found</span>
+                    <span>
+                      Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of {filteredProducts.length} products
+                      {totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}
+                    </span>
                   </div>
                 </div>
 
-                {filteredProducts.length > 0 ? (
-                  <div className={`products-grid ${viewMode}`}>
-                    {filteredProducts.map((product) => (
-                      <ProductCard 
-                        key={product.id} // Use id instead of _id
-                        product={product} 
-                        viewMode={viewMode} 
-                      />
-                    ))}
-                  </div>
+                {currentProducts.length > 0 ? (
+                  <>
+                    <div className={`products-grid ${viewMode}`}>
+                      {currentProducts.map((product) => (
+                        <ProductCard 
+                          key={product.id}
+                          product={product} 
+                          viewMode={viewMode} 
+                        />
+                      ))}
+                    </div>
+
+                    {/* Pagination */}
+                    {totalPages > 1 && (
+                      <div className="pagination-container">
+                        <nav className="pagination">
+                          <button
+                            className={`pagination-btn ${currentPage === 1 ? 'disabled' : ''}`}
+                            onClick={() => paginate(currentPage - 1)}
+                            disabled={currentPage === 1}
+                          >
+                            Previous
+                          </button>
+
+                          <div className="pagination-numbers">
+                            {getPageNumbers().map(number => (
+                              <button
+                                key={number}
+                                className={`pagination-number ${currentPage === number ? 'active' : ''}`}
+                                onClick={() => paginate(number)}
+                              >
+                                {number}
+                              </button>
+                            ))}
+                          </div>
+
+                          <button
+                            className={`pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`}
+                            onClick={() => paginate(currentPage + 1)}
+                            disabled={currentPage === totalPages}
+                          >
+                            Next
+                          </button>
+                        </nav>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <div className="no-products">
                     <h3>No products found</h3>

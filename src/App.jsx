@@ -18,6 +18,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService';
 import CookiePolicy from './pages/CookiePolicy';
 import ShippingInfo from './pages/ShippingInfo';
+
 import ReturnsExchanges from './pages/ReturnsExchanges';
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";

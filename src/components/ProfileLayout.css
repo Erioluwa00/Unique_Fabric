@@ -1,7 +1,8 @@
+
 .layout {
   display: flex;
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: #f1f1f2;
 }
 
 /* MOBILE VIEW */
@@ -42,12 +43,14 @@
   display: flex;
   width: 100%;
   min-height: 100vh;
+  /* background-color: #fff; */
 }
 
 .up-container {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  max-height: 80vh;
 }
 
 /* Sidebar takes fixed width */
@@ -55,15 +58,18 @@
   width: 280px;
   min-width: 280px;
   flex-shrink: 0;
+  max-height: 80vh;
+  /* position: fixed; */
 }
 
 /* Main content takes remaining space */
 .page-content {
   flex: 1;
   padding: 30px;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-  overflow-y: auto;
+  background-color: #fff;
+  min-height: 70vh;
+  max-height: 80vh;
+  /* overflow-y: auto; */
   box-sizing: border-box;
 }
 
