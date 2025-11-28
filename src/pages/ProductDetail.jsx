@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react"
 import { useParams, Link } from "react-router-dom"
 import { CartContext } from "../context/CartContext"
 import { WishlistContext } from "../context/WishlistContext"
+import { useRecentlyViewed } from "../context/RecentlyViewedContext"
 import ImageGallery from "../components/ImageGallery"
 import ProductSpecs from "../components/ProductSpecs"
 import ProductReviews from "../components/ProductReviews"
@@ -18,6 +19,7 @@ const ProductDetail = () => {
 
   const { addToCart } = useContext(CartContext)
   const { addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext)
+  const { addToRecentlyViewed } = useRecentlyViewed()
 
   // Fetch product from database
   useEffect(() => {
@@ -49,6 +51,13 @@ const ProductDetail = () => {
       fetchProduct();
     }
   }, [id]);
+
+  // Track product view when product is loaded
+  useEffect(() => {
+    if (product) {
+      addToRecentlyViewed(product);
+    }
+  }, [product, addToRecentlyViewed]);
 
   // Helper function to transform database data
   const transformProductData = (productData) => {
@@ -394,8 +403,6 @@ const ProductDetail = () => {
                 >
                   Add to Cart - ${(product.price * quantity).toFixed(2)}
                 </button>
-
-               
               </div>
             </div>
           </div>

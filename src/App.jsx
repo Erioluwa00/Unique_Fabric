@@ -42,6 +42,7 @@ import AdminFullContactMessages from "./pages/admin/AdminFullContactMessages";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { RecentlyViewedProvider } from "./context/RecentlyViewedContext";
 
 // Layouts & Protection
 import AdminLayout from "./layouts/AdminLayout";
@@ -58,6 +59,7 @@ import UserOrders from "./pages/profile/UserOrders";
 import UserPendingReviews from "./pages/profile/UserPendingReviews";
 import UserEditProfile from "./pages/profile/UserEditProfile";
 import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
+import UserRecentlyViewed from "./pages/profile/UserRecentlyViewed";
 import LookbookDetails from "./pages/LookbookDetails";
 import ProfileLayout from "./components/ProfileLayout";
 import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
@@ -164,6 +166,7 @@ function AppContent() {
             <Route path="/userPendingReviews" element={<UserPendingReviews />} />
             <Route path="/userEditProfile" element={<UserEditProfile />} />
             <Route path="/userPreviousOrders" element={<UserPreviousOrders />} />
+            <Route path="/userRecentlyViewed" element={<UserRecentlyViewed />} />
             <Route path="/userNewsletter" element={<UserNewsletterPreference />} />
           </Route>
 
@@ -201,10 +204,12 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <WishlistProvider>
+          <RecentlyViewedProvider>
           <Router>
             <ScrollToTop/>
             <AppContent />
           </Router>
+          </RecentlyViewedProvider>
         </WishlistProvider>
       </CartProvider>
     </AuthProvider>
