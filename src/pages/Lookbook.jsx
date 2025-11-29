@@ -472,29 +472,29 @@ const LookBook = () => {
 
       {/* Modal */}
       {isModalOpen && selectedLook && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>
+        <div className="lookbook-modal-overlay" onClick={closeModal}>
+          <div className="lookbook-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="lookbook-modal-close" onClick={closeModal}>
               ×
             </button>
-            <div className="modal-body">
-              <div className="modal-image">
+            <div className="lookbook-modal-body">
+              <div className="lookbook-modal-image">
                 <img src={selectedLook.image} alt={selectedLook.title} />
               </div>
-              <div className="modal-details">
+              <div className="lookbook-modal-details">
                 <h2>{selectedLook.title}</h2>
-                <p className="modal-designer">by {selectedLook.designer}</p>
-                <p className="modal-category">
+                <p className="lookbook-modal-designer">by {selectedLook.designer}</p>
+                <p className="lookbook-modal-category">
                   Category:{" "}
                   {
                     categories.find((cat) => cat.id === selectedLook.category)
                       ?.name
                   }
                 </p>
-                <p className="modal-full-description">
+                <p className="lookbook-modal-full-description">
                   {selectedLook.fullDescription}
                 </p>
-                <div className="modal-fabrics">
+                <div className="lookbook-modal-fabrics">
                   <h4>Fabrics Used:</h4>
                   <div className="fabric-tags">
                     {selectedLook.fabrics.map((fabric, index) => (

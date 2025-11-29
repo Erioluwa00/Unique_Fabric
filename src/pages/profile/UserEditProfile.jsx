@@ -285,7 +285,7 @@ const UserEditProfile = () => {
   return (
     <div >
       {/* <ProfileSidebar /> */}
-      <div className="edit-profile-page">
+      {/* <div className="edit-profile-page"> */}
         <div className="profile-container">
           <h1 className="page-title">Edit Profile</h1>
           
@@ -413,7 +413,7 @@ const UserEditProfile = () => {
           </form>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 

@@ -21,10 +21,11 @@ const Shop = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(12);
+  const [productsPerPage] = useState(24);
 
   // Fetch products from API
   useEffect(() => {
@@ -63,7 +64,7 @@ const Shop = () => {
     fetchProducts();
   }, []);
 
-  // Apply filters + sorting
+  // Apply filters + sorting + search
   useEffect(() => {
     let filtered = products.filter((product) => {
       const matchesCategory = !filters.category || product.category === filters.category;
@@ -71,8 +72,14 @@ const Shop = () => {
       const matchesTexture = !filters.texture || (product.texture && product.texture === filters.texture);
       const matchesPrice = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
       const matchesStock = !filters.inStock || product.inStock;
+      
+      // Search functionality
+      const matchesSearch = !searchQuery || 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return matchesCategory && matchesColor && matchesTexture && matchesPrice && matchesStock;
+      return matchesCategory && matchesColor && matchesTexture && matchesPrice && matchesStock && matchesSearch;
     });
 
     // Sorting
@@ -87,9 +94,9 @@ const Shop = () => {
     });
 
     setFilteredProducts(filtered);
-    // Reset to first page when filters change
+    // Reset to first page when filters or search change
     setCurrentPage(1);
-  }, [products, filters, sortBy]);
+  }, [products, filters, sortBy, searchQuery]);
 
   // Scroll to top when page changes
   useEffect(() => {
@@ -147,6 +154,10 @@ const Shop = () => {
       priceRange: [0, 500],
       inStock: false,
     });
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
   };
 
   const retryFetch = () => {
@@ -223,10 +234,42 @@ const Shop = () => {
               />
 
               <div className="products-section">
+                {/* Search Bar */}
+                <div className="shop-search-container">
+                  <div className="shop-search-wrapper">
+                    <div className="shop-search-icon">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      className="shop-search-input"
+                      placeholder="Search products by name, description, or category..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {searchQuery && (
+                      <button
+                        className="shop-search-clear"
+                        onClick={clearSearch}
+                        type="button"
+                      >
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                </div>
+
                 <div className="products-header">
                   <div className="results-info">
                     <span>
                       Showing {indexOfFirstProduct + 1}-{Math.min(indexOfLastProduct, filteredProducts.length)} of {filteredProducts.length} products
+                      {searchQuery && ` for "${searchQuery}"`}
                       {totalPages > 1 && ` (Page ${currentPage} of ${totalPages})`}
                     </span>
                   </div>
@@ -282,8 +325,18 @@ const Shop = () => {
                 ) : (
                   <div className="no-products">
                     <h3>No products found</h3>
-                    <p>Try adjusting your filters or browse all products.</p>
-                    <button className="btn" onClick={clearFilters}>Clear Filters</button>
+                    <p>
+                      {searchQuery 
+                        ? `No products found for "${searchQuery}". Try adjusting your search or filters.`
+                        : "Try adjusting your filters or browse all products."
+                      }
+                    </p>
+                    <div className="no-products-actions">
+                      <button className="btn" onClick={clearFilters}>Clear Filters</button>
+                      {searchQuery && (
+                        <button className="btn btn-secondary" onClick={clearSearch}>Clear Search</button>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

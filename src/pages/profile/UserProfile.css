@@ -198,9 +198,9 @@
         padding-top: 10px;
     }
 
-    .up-sidebar-nav li {
-        margin: 0 5px; /* Spacing between horizontal items */
-    }
+    /* .up-sidebar-nav li {
+        Spacing between horizontal items 
+    } */
 
     .up-sidebar-nav li a {
         padding: 8px 15px;

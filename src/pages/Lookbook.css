@@ -287,7 +287,7 @@
 }
 
 /* Modal Styles */
-.modal-overlay {
+.lookbook-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -301,7 +301,7 @@
   padding: 20px;
 }
 
-.modal-content {
+.lookbook-modal-content {
   background: white;
   border-radius: 16px;
   max-width: 900px;
@@ -325,7 +325,7 @@
   }
 }
 
-.modal-close {
+.lookbook-modal-close {
   position: absolute;
   top: 15px;
   right: 15px;
@@ -345,13 +345,13 @@
   font-weight: bold;
 }
 
-.modal-close:hover {
+.lookbook-modal-close:hover {
   background: #d4af37;
   color: #1A365D;
   transform: rotate(90deg);
 }
 
-.modal-body {
+.lookbook-modal-body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
@@ -359,25 +359,25 @@
 }
 
 @media (min-width: 768px) {
-  .modal-body {
+  .lookbook-modal-body {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-.modal-image {
+.lookbook-modal-image {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.modal-image img {
+.lookbook-modal-image img {
   width: 100%;
   height: auto;
   border-radius: 12px;
   object-fit: cover;
 }
 
-.modal-details h2 {
+.lookbook-modal-details h2 {
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   font-weight: 700;
   color: #1A365D;
@@ -385,42 +385,42 @@
   line-height: 1.3;
 }
 
-.modal-designer {
+.lookbook-modal-designer {
   color: #d4af37;
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: clamp(1rem, 2vw, 1.1rem);
 }
 
-.modal-category {
+.lookbook-modal-category {
   color: #64748b;
   margin-bottom: 1.5rem;
   font-weight: 500;
   font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
-.modal-full-description {
+.lookbook-modal-full-description {
   color: #4a5568;
   line-height: 1.7;
   margin-bottom: 1.5rem;
   font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
-.modal-fabrics h4 {
+.lookbook-modal-fabrics h4 {
   font-weight: 600;
   margin-bottom: 0.75rem;
   color: #1A365D;
   font-size: clamp(1rem, 2vw, 1.1rem);
 }
 
-.modal-actions {
+.lookbook-modal-actions {
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
   flex-wrap: wrap;
 }
 
-.modal-actions .btn {
+.lookbook-modal-actions .btn {
   flex: 1;
   min-width: 140px;
   padding: 8px 20px;
@@ -436,26 +436,26 @@
   text-align: center;
 }
 
-.modal-actions .btn-primary {
+.lookbook-modal-actions .btn-primary {
   background: #d4af37;
   color: #1A365D;
   border: 2px solid #d4af37;
 }
 
-.modal-actions .btn-primary:hover {
+.lookbook-modal-actions .btn-primary:hover {
   background: #b8941f;
   border-color: #b8941f;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
 }
 
-.modal-actions .btn-outline {
+.lookbook-modal-actions .btn-outline {
   background: transparent;
   border: 2px solid #1A365D;
   color: #1A365D;
 }
 
-.modal-actions .btn-outline:hover {
+.lookbook-modal-actions .btn-outline:hover {
   background: #1A365D;
   color: #fff;
   transform: translateY(-2px);
@@ -676,15 +676,15 @@
     grid-template-columns: 1fr;
   }
   
-  .modal-body {
+  .lookbook-modal-body {
     padding: 1.5rem;
   }
   
-  .modal-actions {
+  .lookbook-modal-actions {
     flex-direction: column;
   }
   
-  .modal-actions .btn {
+  .lookbook-modal-actions .btn {
     width: 100%;
   }
 }
@@ -697,7 +697,7 @@
   .look-actions .btn:hover,
   .btn-primary:hover,
   .btn-outline:hover,
-  .modal-actions .btn:hover {
+  .lookbook-modal-actions .btn:hover {
     transform: none;
   }
   
@@ -733,7 +733,7 @@
   .look-actions .btn,
   .btn-primary,
   .btn-outline,
-  .modal-actions .btn {
+  .lookbook-modal-actions .btn {
     transition: none;
   }
   
@@ -745,7 +745,7 @@
     transition: none;
   }
   
-  .modal-content {
+  .lookbook-modal-content {
     animation: none;
   }
 }
@@ -807,8 +807,8 @@
 .look-actions .btn:focus,
 .btn-primary:focus,
 .btn-outline:focus,
-.modal-close:focus,
-.modal-actions .btn:focus {
+.lookbbok-modal-close:focus,
+.lookbook-modal-actions .btn:focus {
   outline: 2px solid #d4af37;
   outline-offset: 2px;
 }

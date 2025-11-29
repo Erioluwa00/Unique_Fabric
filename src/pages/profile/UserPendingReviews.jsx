@@ -6,7 +6,7 @@ const UserPendingReviews = () => {
   return (
          <div>
      {/* <ProfileSidebar/> */}
-    <div className="pending-reviews-page">
+    {/* <div className="pending-reviews-page"> */}
       <div className="reviews-container">
         <h1 className="page-title">Pending Reviews</h1>
         
@@ -29,7 +29,7 @@ const UserPendingReviews = () => {
         </div>
       </div>
     </div>
-    </div>
+    // </div>
   );
 };
 

@@ -1,14 +1,14 @@
-
 .layout {
   display: flex;
-  min-height: 100vh;
+  min-height: 100%;
   background-color: #f1f1f2;
+  width: 100%;
 }
 
 /* MOBILE VIEW */
 .mobile-sidebar {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background: white;
 }
 
@@ -16,7 +16,7 @@
   width: 100%;
   min-height: 100vh;
   background: #f8f9fa;
-  padding: 20px;
+  padding: 16px;
 }
 
 .back-btn {
@@ -32,6 +32,8 @@
   align-items: center;
   gap: 8px;
   transition: background 0.3s ease;
+  /* width: 100%; */
+  justify-content: center;
 }
 
 .back-btn:hover {
@@ -43,82 +45,187 @@
   display: flex;
   width: 100%;
   min-height: 100vh;
-  /* background-color: #fff; */
 }
 
 .up-container {
   display: flex;
   width: 100%;
-  /* min-height: 100vh; */
   max-height: 80vh;
+  flex-direction: column;
 }
 
 /* Sidebar takes fixed width */
 .up-sidebar {
-  width: 280px;
-  min-width: 280px;
+  width: 100%;
+  min-height: auto;
   flex-shrink: 0;
-  max-height: 80vh;
-  /* position: fixed; */
+  max-height: none;
+  overflow: auto;
 }
 
 /* Main content takes remaining space */
 .page-content {
   flex: 1;
-  padding: 30px;
+  padding: 20px;
   background-color: #fff;
   min-height: 70vh;
   max-height: 80vh;
-  /* overflow-y: auto; */
+  overflow-y: auto;
   box-sizing: border-box;
+  width: 100%;
 }
 
 /* Responsive Design */
-@media (max-width: 767px) {
-  .desktop-layout {
-    display: none;
-  }
-  
-  .mobile-sidebar {
-    display: block;
-  }
-  
-  .page-content {
-    padding: 20px;
-  }
+
+/* Mobile First - Default styles are for mobile */
+.mobile-sidebar {
+  display: block;
 }
 
-@media (min-width: 768px) {
-  .mobile-sidebar {
+.desktop-layout {
+  display: none;
+}
+
+/* Tablet and above */
+@media (min-width: 769px) {
+  /* .mobile-sidebar {
     display: none;
-  }
+  } */
   
   .desktop-layout {
     display: flex;
   }
+  
+  .up-container {
+    flex-direction: row;
+    max-height: 80vh;
+  }
+  
+  .up-sidebar {
+    width: 280px;
+    min-width: 280px;
+    max-height: 80vh;
+    position: sticky;
+    top: 0;
+  }
+  
+  .page-content {
+    padding: 30px;
+    max-height: 80vh;
+  }
+  
+  .back-btn {
+    width: auto;
+    justify-content: flex-start;
+  }
 }
 
 /* Large screens optimization */
+@media (min-width: 1024px) {
+  .page-content {
+    padding: 35px;
+  }
+  
+  .up-sidebar {
+    width: 300px;
+    min-width: 300px;
+  }
+}
+
+/* Extra large screens */
 @media (min-width: 1200px) {
   .page-content {
     padding: 40px;
   }
   
   .up-sidebar {
-    width: 300px;
+    width: 320px;
+    min-width: 320px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .mobile-content {
+    padding: 12px;
+  }
+  
+  .page-content {
+    padding: 16px;
+  }
+  
+  .back-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Very small mobile devices */
+@media (max-width: 360px) {
+  .mobile-content {
+    padding: 10px;
+  }
+  
+  .page-content {
+    padding: 12px;
+  }
+  
+  .back-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Landscape orientation for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .layout {
+    min-height: 100vh;
+  }
+  
+  .mobile-sidebar,
+  .mobile-content {
+    min-height: 100vh;
+  }
+  
+  .up-container {
+    max-height: 90vh;
+  }
+  
+  .page-content {
+    max-height: 90vh;
   }
 }
 
 /* Smooth transitions */
-.layout {
+.layout,
+.up-sidebar,
+.page-content,
+.back-btn {
   transition: all 0.3s ease;
 }
 
 /* Ensure no horizontal scroll */
 body {
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  .back-btn {
+    min-height: 44px; /* Better touch target */
+  }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .layout {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }

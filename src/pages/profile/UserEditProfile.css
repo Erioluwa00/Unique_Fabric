@@ -1,4 +1,4 @@
-.edit-profile-page {
+/* .edit-profile-page {
   min-height: 60vh;
   background-color: white;
   padding: 20px;
@@ -6,16 +6,17 @@
   max-height: 75vh;
   overflow-y: scroll;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-}
+} */
 
-.profile-container {
+/* .profile-container {
   margin: 0 auto;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(26, 54, 93, 0.1);
   padding: 40px;
+  overflow-y: scroll;
   border: 1px solid #e9ecef;
-}
+} */
 
 .page-title {
   font-size: 32px;

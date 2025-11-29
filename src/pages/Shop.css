@@ -548,6 +548,78 @@
   color: white;
 }
 
+
+
+/* Search Bar Styles */
+.shop-search-container {
+  margin-bottom: 25px;
+  padding: 0 10px;
+}
+
+.shop-search-wrapper {
+  position: relative;
+  max-width: 500px;
+  margin: 0;
+}
+
+.shop-search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #718096;
+  z-index: 2;
+}
+
+.shop-search-input {
+  width: 100%;
+  padding: 14px 50px 14px 48px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: inherit;
+}
+
+.shop-search-input:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+.shop-search-input::placeholder {
+  color: #a0aec0;
+}
+
+.shop-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #718096;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.shop-search-clear:hover {
+  background: #f7fafc;
+  color: #4a5568;
+}
+
+
+
+
 /* Responsive Pagination */
 @media (max-width: 768px) {
   .pagination {
