@@ -179,9 +179,11 @@ const UserPreviousOrders = () => {
                   />
                   <div className="order-item-details">
                     <span className="order-item-name">{item.name}</span>
+                    <br></br>
                     <span className="order-item-quantity">
                       Qty: {item.quantity}
                     </span>
+                    <br></br>
                     <span className="order-item-price">
                       ${item.price?.toFixed(2) || "0.00"} each
                     </span>
@@ -202,7 +204,14 @@ const UserPreviousOrders = () => {
               >
                 View Details
               </Link>
-              <button className="action-btn reorder">Reorder</button>
+              
+              <Link
+                to={`/UserReorder`}
+                className="action-btn reorder"
+              >
+                Reorder
+              </Link>
+              
               {order.status === "shipped" && order.trackingNumber && (
                 <a
                   href={`https://tracking.carrier.com/track/${order.trackingNumber}`}

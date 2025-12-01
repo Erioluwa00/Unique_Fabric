@@ -1,20 +1,3 @@
-/* .previous-orders-page {
-  max-height: 40vh;
-  background-color: #fff;
-  padding: 20px;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-} */
-
-/* .orders-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 40px;
-} */
-
 .page-title {
   font-size: 32px;
   font-weight: 700;
@@ -128,6 +111,13 @@
   margin-bottom: 20px;
 }
 
+.order-item-quantity {
+  font-size: 13px;
+  color: black;
+  font-weight: bold;
+
+}
+
 .order-meta {
   display: flex;
   gap: 20px;
@@ -162,6 +152,7 @@
 .action-btn {
   padding: 8px 16px;
   border: 1px solid #007bff;
+  text-decoration: none;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 500;

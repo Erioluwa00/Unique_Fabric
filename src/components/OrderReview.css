@@ -244,3 +244,84 @@
     gap: 1rem;
   }
 }
+
+/* OrderReview.css Additions */
+.saved-address-info,
+.saved-payment-info {
+  padding: 15px;
+  background: #f0f8ff;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+}
+
+.saved-badge {
+  color: #007bff;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding: 4px 8px;
+  background: rgba(0, 123, 255, 0.1);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.save-option {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.save-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.save-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.save-note {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* Card display styles */
+.card-info p {
+  margin: 5px 0;
+}
+
+.card-number {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+}
+
+.cardholder-name {
+  font-weight: 500;
+}
+
+.expiry {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Security badge enhancement */
+.order-security .security-badge {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+}
+
+.policy-feature {
+  padding: 8px 12px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}

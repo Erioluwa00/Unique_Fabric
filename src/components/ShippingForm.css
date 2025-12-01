@@ -1,4 +1,4 @@
-/* .shipping-form {
+.shipping-form {
   max-width: 600px;
   margin: 0 auto;
 }
@@ -116,4 +116,118 @@
 .form-group:has(input:not([required])) label::after,
 .form-group:has(select:not([required])) label::after {
   content: '';
-} */
+}
+
+
+/* ShippingForm.css additions */
+.saved-addresses-section,
+.saved-payments-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.saved-addresses-list,
+.saved-payments-list {
+  display: grid;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.saved-address-card,
+.saved-payment-card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.saved-address-card:hover,
+.saved-payment-card:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.saved-address-card.selected,
+.saved-payment-card.selected {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.saved-address-card .default-badge,
+.saved-payment-card .default-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+}
+
+.saved-address-card .address-details {
+  margin-top: 8px;
+}
+
+.saved-address-card .address-type {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #e9ecef;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-top: 8px;
+}
+
+.saved-payment-card .payment-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 8px;
+}
+
+.saved-payment-card .card-logo {
+  font-size: 1.5rem;
+}
+
+.saved-payment-card .card-type {
+  display: inline-block;
+  padding: 2px 8px;
+  background-color: #e9ecef;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+.checkbox-group {
+  margin: 15px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .saved-address-card,
+  .saved-payment-card {
+    padding: 12px;
+  }
+  
+  .saved-payment-card .payment-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
