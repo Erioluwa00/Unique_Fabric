@@ -106,7 +106,6 @@
 // export default AdminSidebar;
 
 
-// components/AdminSidebar.jsx
 import React, { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";

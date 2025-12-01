@@ -86,23 +86,23 @@ const ProfileSidebar = ({ onLinkClick }) => {
         <ul>
           <li>
             <NavLink
-              to="/userPaymentSettings"
+              to="/UserAddressPayment"
               className={({ isActive }) =>
                 isActive ? "up-link active" : "up-link"
               }
                onClick={onLinkClick}
             >
-              <FaCogs className="icon" /> Payment Settings
+              <FaCogs className="icon" /> Address & Payment
             </NavLink>
           </li>
           <li>
             <NavLink
-              to="/userAddressBook"
+              to="/UserReorder"
               className={({ isActive }) =>
                 isActive ? "up-link active" : "up-link"
               }
             >
-              <FaAddressBook className="icon" /> Address Book
+              <FaAddressBook className="icon" /> Reorder
             </NavLink>
           </li>
           <li>

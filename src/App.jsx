@@ -60,12 +60,13 @@ import UserPendingReviews from "./pages/profile/UserPendingReviews";
 import UserEditProfile from "./pages/profile/UserEditProfile";
 import UserPreviousOrders from "./pages/profile/UserPreviousOrders";
 import UserRecentlyViewed from "./pages/profile/UserRecentlyViewed";
+import UserAddressPayment from "./pages/profile/UserAddressPayment";
+import UserReorder from "./pages/profile/UserReorder";
 import LookbookDetails from "./pages/LookbookDetails";
 import ProfileLayout from "./components/ProfileLayout";
 import UserNewsletterPreference from "./pages/profile/UserNewsletterPreference";
 import FabricCare from "./pages/FabricCare";
 import SizeGuide from "./pages/SizeGuide";
-import DebugUser from "./pages/DebugUser";
 
 // Helper component for layout control
 function AppContent() {
@@ -110,7 +111,6 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/lookbookDetails" element={<LookbookDetails />} />
-          <Route path="/debug-user" element={<DebugUser />} />
 
           {/* Auth Routes */}
           <Route path="/login" element={<Login />} />
@@ -167,6 +167,8 @@ function AppContent() {
             <Route path="/userEditProfile" element={<UserEditProfile />} />
             <Route path="/userPreviousOrders" element={<UserPreviousOrders />} />
             <Route path="/userRecentlyViewed" element={<UserRecentlyViewed />} />
+            <Route path="/userAddressPayment" element={<UserAddressPayment />} />
+            <Route path="/userReorder" element={<UserReorder />} />
             <Route path="/userNewsletter" element={<UserNewsletterPreference />} />
           </Route>
 
