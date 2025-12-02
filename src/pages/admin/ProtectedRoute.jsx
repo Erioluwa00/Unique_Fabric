@@ -1,52 +1,11 @@
-// import { useContext } from 'react';
-// import { Navigate, useLocation } from 'react-router-dom';
-// import { AuthContext } from '../../context/AuthContext';
-
-// const ProtectedRoute = ({ children, requireAdmin = false }) => {
-//   const { user, loading } = useContext(AuthContext);
-//   const location = useLocation();
-
-//   // Shows loading while checking authentication
-//   if (loading) {
-//     return (
-//       <div className="loading-spinner">
-//         <div className="spinner"></div>
-//         <p>Checking authentication...</p>
-//       </div>
-//     );
-//   }
-
-//   // If user is not logged in, redirect to login
-//   if (!user) {
-//     return <Navigate to="/login" state={{ from: location }} replace />;
-//   }
-
-//   // If route requires admin privileges but user is not admin
-//   if (requireAdmin && !user.isAdmin) {
-//     return (
-//       <div className="access-denied">
-//         <h2>Access Denied</h2>
-//         <p>You need administrator privileges to access this page.</p>
-//         <Navigate to="/" replace />
-//       </div>
-//     );
-//   }
-
-//   return children;
-// };
-
-// export default ProtectedRoute;
-
-// pages/admin/ProtectedRoute.jsx - Make sure it allows all authenticated users
 import { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
-const ProtectedRoute = ({ children, requireAdmin = false }) => {
-  const { user, loading } = useContext(AuthContext);
+const ProtectedRoute = ({ children }) => {
+  const { user, loading, getUserRole } = useContext(AuthContext);
   const location = useLocation();
 
-  // Shows loading while checking authentication
   if (loading) {
     return (
       <div className="loading-spinner">
@@ -56,23 +15,17 @@ const ProtectedRoute = ({ children, requireAdmin = false }) => {
     );
   }
 
-  // If user is not logged in, redirect to login
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // If route requires admin privileges but user is not admin/manager/staff
-  if (requireAdmin) {
-    const userRole = user.role || (user.isAdmin ? 'admin' : 'customer');
-    if (!['admin', 'manager', 'staff'].includes(userRole)) {
-      return (
-        <div className="access-denied">
-          <h2>Access Denied</h2>
-          <p>You need administrator privileges to access this page.</p>
-          <Navigate to="/" replace />
-        </div>
-      );
-    }
+  // Check if user is admin - if yes, redirect to admin panel
+  const userRole = getUserRole();
+  const isAdmin = ['admin', 'manager', 'staff'].includes(userRole);
+  
+  if (isAdmin) {
+    // If admin tries to access any protected user route, redirect to admin panel
+    return <Navigate to="/admin" replace />;
   }
 
   return children;

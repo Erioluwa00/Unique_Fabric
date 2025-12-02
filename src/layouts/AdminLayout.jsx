@@ -1,13 +1,25 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import AdminSidebar from "../pages/admin/AdminSidebar";
 import "../pages/admin/AdminPanel.css"
 
 const AdminLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { getUserRole } = useContext(AuthContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+
+  // Check on mount - if not admin, redirect to home
+  useEffect(() => {
+    const userRole = getUserRole();
+    const isAdmin = ['admin', 'manager', 'staff'].includes(userRole);
+    
+    if (!isAdmin) {
+      navigate("/", { replace: true });
+    }
+  }, [getUserRole, navigate]);
 
   const pathToId = {
     "/admin": "dashboard",
@@ -15,6 +27,7 @@ const AdminLayout = () => {
     "/admin/orders": "orders",
     "/admin/reports": "reports",
     "/admin/settings": "settings",
+    "/admin/adminFullContactMessages": "messages",
   };
 
   // Set active tab based on current route path
