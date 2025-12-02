@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 import { WishlistContext } from "../context/WishlistContext";
+import { useRecentlyViewed } from "../context/RecentlyViewedContext";
 import { FaHeart, FaRegHeart, FaTimes } from "react-icons/fa";
 
 const FeaturedFabrics = () => {
@@ -9,6 +10,15 @@ const FeaturedFabrics = () => {
     useContext(CartContext);
   const { addToWishlist, removeFromWishlist, isInWishlist } =
     useContext(WishlistContext);
+  
+  let recentlyViewedContext;
+  try {
+    recentlyViewedContext = useRecentlyViewed();
+  } catch (error) {
+    recentlyViewedContext = { addToRecentlyViewed: () => {} };
+  }
+  
+  const { addToRecentlyViewed } = recentlyViewedContext;
 
   const [featuredFabrics, setFeaturedFabrics] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,22 +41,26 @@ const FeaturedFabrics = () => {
 
         // Transform the data to match your frontend structure
         const transformedProducts = allProducts.map((product) => ({
-          id: product._id, // Use MongoDB _id as id
+          id: product._id,
           name: product.name,
           price: product.price,
-          image: product.imageUrl, // Map imageUrl to image
+          image: product.imageUrl,
           category: product.category,
           description: product.description,
-          inStock: product.stock > 0, // Calculate inStock from stock
+          inStock: product.stock > 0,
           stock: product.stock,
           sku: product.sku,
+          images: product.images || [product.imageUrl],
+          rating: product.rating || 4.5,
+          reviews: product.reviews || 0,
+          status: product.status || 'active'
         }));
 
-        // Select 4 random products as featured, or use some logic to determine featured
+        // Select 4 random products as featured
         const featured = transformedProducts
-          .filter((product) => product.inStock) // Only show in-stock products
-          .sort(() => 0.5 - Math.random()) // Randomize
-          .slice(0, 4); // Take first 4
+          .filter((product) => product.inStock)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 4);
 
         setFeaturedFabrics(featured);
         setError("");
@@ -87,9 +101,28 @@ const FeaturedFabrics = () => {
     }
   };
 
-  const openQuickView = (fabric) => {
+  const openQuickView = async (fabric) => {
     setSelectedFabric(fabric);
     setIsModalOpen(true);
+    
+    if (addToRecentlyViewed && typeof addToRecentlyViewed === 'function') {
+      try {
+        const fabricForRecentlyViewed = {
+          ...fabric,
+          productId: fabric.id, 
+          imageUrl: fabric.image,
+          images: fabric.images || [fabric.image],
+          rating: fabric.rating || 4.5,
+          reviews: fabric.reviews || 0,
+          status: fabric.status || 'active'
+        };
+        
+        await addToRecentlyViewed(fabricForRecentlyViewed);
+      } catch (error) {
+        console.error("Failed to add to recently viewed:", error);
+      }
+    }
+    
     // Prevent body scroll when modal is open
     document.body.style.overflow = "hidden";
   };
