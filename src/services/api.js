@@ -44,9 +44,11 @@ export const orderAPI = {
 
 // User API calls
 export const userAPI = {
-  getProfile: () => API.get("/users/profile"),
+  getProfile: () => API.get("/auth/me"),
   updateProfile: (data) => API.put("/users/profile", data),
   changePassword: (data) => API.put("/users/change-password", data),
+  getNewsletterPreference: () => API.get("/users/newsletter-preference"),
+  updateNewsletterPreference: (data) => API.put("/users/newsletter-preference", data),
 };
 
 // Auth API calls
