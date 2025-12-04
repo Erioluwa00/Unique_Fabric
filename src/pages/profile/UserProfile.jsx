@@ -115,10 +115,10 @@ const UserProfile = () => {
 
     // Format currency
     const formatCurrency = (amount) => {
-        if (!amount) return '₦ 0';
-        return new Intl.NumberFormat('en-NG', {
+        if (!amount) return '$ 0';
+        return new Intl.NumberFormat('en-US', {
             style: 'currency',
-            currency: 'NGN',
+            currency: 'USD',
             minimumFractionDigits: 0
         }).format(amount);
     };
