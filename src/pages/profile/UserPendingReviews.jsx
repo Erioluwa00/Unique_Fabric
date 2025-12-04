@@ -1,11 +1,9 @@
 import React from 'react';
 import './UserPendingReviews.css';
-import ProfileSidebar from '../../components/ProfileSidebar';
 import {FaStar} from 'react-icons/fa';
 const UserPendingReviews = () => {
   return (
          <div>
-     {/* <ProfileSidebar/> */}
     {/* <div className="pending-reviews-page"> */}
       <div className="reviews-container">
         <h1 className="page-title">Pending Reviews</h1>

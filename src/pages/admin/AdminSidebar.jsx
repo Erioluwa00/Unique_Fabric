@@ -127,7 +127,7 @@ const AdminSidebar = ({
   onCloseMobileMenu,
 }) => {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext); // Make sure logout is destructured
 
   // Get user role and info
   const userRole = user?.role || (user?.isAdmin ? 'admin' : 'customer');
@@ -157,12 +157,19 @@ const AdminSidebar = ({
     }
   };
 
-  // Handle logout
+  // Handle logout - FIXED VERSION
   const handleLogout = () => {
-    localStorage.removeItem("fabricToken");
-    localStorage.removeItem("fabricUser");
+    // Call the logout function from AuthContext
+    logout();
+    
+    // Clear any additional storage if needed
     sessionStorage.clear();
+    
+    // Navigate to login page
     navigate("/login", { replace: true });
+    
+    // Force a page reload to ensure all states are cleared
+    window.location.reload();
   };
 
   // Get role display text
