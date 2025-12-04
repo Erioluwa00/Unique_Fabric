@@ -70,7 +70,7 @@
 }
 
 .order-card-header {
-  display: flex;
+  /* display: flex; */
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 1.5rem;
@@ -224,7 +224,7 @@
   color: #718096;
 }
 
-.btn {
+/* .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -256,7 +256,7 @@
 .btn--outline:hover {
   background-color: #4f46e5;
   color: white;
-}
+} */
 
 .loading {
   text-align: center;

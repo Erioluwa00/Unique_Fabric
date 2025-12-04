@@ -30,7 +30,7 @@
   z-index: 2;
 }
 
-.about-hero h1 {
+.about-hero h1, .contact-hero h1 {
   font-size: 3.4rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -81,10 +81,10 @@
 
 /* Story & Mission Section */
 .story-mission-section {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 
-.tab-navigation {
+.about-tab-navigation {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -301,15 +301,18 @@
 
 /* CTA Section */
 .about-cta {
-  padding: 80px 0;
-  background: #ececec;
+  padding: 6rem 0;
   /* background: linear-gradient(135deg, #1a365d 0%, #b8941f 100%); */
-  /* color: #fff; */
+  background-image: linear-gradient(rgba(16, 18, 63, 0.918), rgba(85, 72, 13, 0.568)), url("https://i.pinimg.com/736x/c5/58/b5/c558b50f9dcba79e81c41f23c6fbe488.jpg");
+  /* background-color: rgb(232, 232, 238); */
+  color: white;
   text-align: center;
+  margin-bottom: 100px;
 }
 
 .cta-content h2 {
   font-size: 2.5rem;
+  color: white;
   font-weight: 700;
   margin-bottom: 1rem;
 }
@@ -332,7 +335,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .about-hero h1 {
+  .about-hero h1, .contact-hero h1 {
     font-size: 2.5rem;
   }
   
@@ -341,7 +344,7 @@
     gap: 2rem;
   }
   
-  .tab-navigation {
+  .about-tab-navigation {
     flex-direction: column;
     align-items: center;
   }
@@ -372,11 +375,11 @@
 }
 
 @media (max-width: 480px) {
-  .about-hero {
+  .about-hero, .contact-hero {
     padding: 60px 0;
   }
   
-  .about-hero h1 {
+  .about-hero h1, .contact-hero h1 {
     font-size: 2rem;
   }
   

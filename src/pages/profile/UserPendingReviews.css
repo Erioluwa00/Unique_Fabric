@@ -76,11 +76,11 @@
   transform: translateX(-50%);
   width: 60px;
   height: 5px;
-  background-color: #007bff;
+  background-color:#2d3748;
   border-radius: 2px;
 }
 
-.continue-shopping-btn {
+/* .continue-shopping-btn {
   background-color: #007bff;
   color: white;
   border: none;
@@ -101,7 +101,7 @@
 
 .continue-shopping-btn:active {
   transform: translateY(0);
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {

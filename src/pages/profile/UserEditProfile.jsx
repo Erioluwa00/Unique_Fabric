@@ -224,7 +224,7 @@ const UserEditProfile = () => {
             <div className="form-actions">
               <button 
                 type="button" 
-                className="cancel-btn" 
+                className="btn " 
                 onClick={handleCancel}
                 disabled={loading}
               >
@@ -232,7 +232,7 @@ const UserEditProfile = () => {
               </button>
               <button 
                 type="submit" 
-                className="save-btn" 
+                className="btn btn-secondary" 
                 disabled={loading}
               >
                 {loading ? 'Updating...' : 'Save Changes'}

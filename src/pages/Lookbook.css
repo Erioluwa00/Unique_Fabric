@@ -571,10 +571,17 @@
 
 /* CTA Section */
 .lookbook-cta {
-  padding: clamp(3rem, 6vw, 5rem) 20px;
+  /* padding: clamp(3rem, 6vw, 5rem) 20px;
   background: linear-gradient(135deg, #1A365D 0%, #2D4A7C 100%);
   color: #f8fafc;
+  text-align: center; */
+ padding: 6rem 0;
+  /* background: linear-gradient(135deg, #1a365d 0%, #b8941f 100%); */
+  background-image: linear-gradient(rgba(16, 18, 63, 0.918), rgba(85, 72, 13, 0.568)), url("https://i.pinimg.com/736x/c5/58/b5/c558b50f9dcba79e81c41f23c6fbe488.jpg");
+  /* background-color: rgb(232, 232, 238); */
+  color: white;
   text-align: center;
+  margin-bottom: 100px;
 }
 
 .lookbook-cta .cta-content {
@@ -607,7 +614,7 @@
   flex-wrap: wrap;
 }
 
-.btn-primary {
+/* .btn-primary {
   background: #d4af37;
   color: #1A365D;
   padding: 12px 24px;
@@ -622,15 +629,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.btn-primary:hover {
+/* .btn-primary:hover {
   background: #b8941f;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-}
+} */
 
-.btn-outline {
+/* .btn-outline {
   background: transparent;
   border: 2px solid #d4af37;
   color: #d4af37;
@@ -644,14 +651,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.btn-outline:hover {
+/* .btn-outline:hover {
   background: #d4af37;
   color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-}
+} */
 
 /* Enhanced Mobile Responsiveness */
 @media (max-width: 360px) {
@@ -802,7 +809,7 @@
 }
 
 /* Focus styles for accessibility */
-.filter-tab:focus,
+/* .filter-tab:focus,
 .view-details-btn:focus,
 .look-actions .btn:focus,
 .btn-primary:focus,
@@ -811,7 +818,7 @@
 .lookbook-modal-actions .btn:focus {
   outline: 2px solid #d4af37;
   outline-offset: 2px;
-}
+} */
 
 
 /* Fix for Lookbook CTA buttons */

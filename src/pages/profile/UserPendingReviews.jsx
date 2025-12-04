@@ -22,7 +22,7 @@ const UserPendingReviews = () => {
             
             <div className="divider"></div>
             
-            <button className="continue-shopping-btn">
+            <button className="btn continue-shopping-btn">
               Continue Shopping
             </button>
           </div>

@@ -2,6 +2,24 @@
 .contact-content-container{
   margin-top: 100px;
 }
+.contact-hero {
+  background: linear-gradient(135deg, #193864ea 0%, #2d3748 100%);
+  color: #fff;
+  padding: 82px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.contact-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://i.pinimg.com/1200x/bb/29/26/bb292699f1cd6fa4268bf89b3e423f09.jpg') ;
+  opacity: 0.1;
+}
 
 .contact-section {
   display: flex;

@@ -57,7 +57,7 @@ span {
 /* Button Styles */
 .btn {
   display: inline-block;
-  padding: 12px 24px;
+  padding: 10px 20px;
   background: #d4af37;
   color: white;
   text-decoration: none;
@@ -67,6 +67,7 @@ span {
   font-weight: bold;
   transition: all 0.3s ease;
   text-align: center;
+  font-size: .9rem;
 }
 
 .btn-primary {
@@ -86,12 +87,12 @@ span {
   background: #1a202c;
 }
 
-/* .btn-outline {
+.btn-outline {
   background: transparent;
   border: 2px solid #d4af37;
-  border: 5px solid red;
+  /* border: 5px solid red; */
   color: white;
-} */
+}
 
 .hero-action .btn{
   color: red;
@@ -100,7 +101,7 @@ span {
 
 .btn-outline:hover {
   background: #d4af37;
-  color: #1a365d;
+  color: white;
 }
 
 .btn:hover {

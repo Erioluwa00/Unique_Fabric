@@ -16,7 +16,10 @@
   border: 1px solid #e9ecef;
   flex-wrap: wrap;
 }
-
+.previous-orders-spinner{
+  margin: auto;
+  margin-top: 40%;
+}
 .tab-button {
   flex: 1;
   background: none;

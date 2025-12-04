@@ -103,9 +103,9 @@ const UserPreviousOrders = () => {
   if (loading) {
     return (
       <div className="previous-orders-page">
-        <div className="loading-spinner">
+        <div className="loading-spinner previous-orders-spinner">
           <div className="spinner"></div>
-          <p>Loading your orders...</p>
+          {/* <p>Loading your orders...</p> */}
         </div>
       </div>
     );

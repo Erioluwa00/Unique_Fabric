@@ -97,7 +97,7 @@ const About = () => {
       {/* Story & Mission Tabs */}
       <section className="story-mission-section">
         <div className="container">
-          <div className="tab-navigation">
+          <div className="about-tab-navigation">
             <button
               className={`tab-btn ${activeTab === 'story' ? 'active' : ''}`}
               onClick={() => setActiveTab('story')}

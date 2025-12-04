@@ -276,12 +276,12 @@ const Header = () => {
 
               <NavLink to="/wishlist" className="wishlist-link">
                 <Heart size={20} />
-                {wishlistCount > 0 && <span className="count">{wishlistCount}</span>}
+                {wishlistCount > 0 && <span className="header-count">{wishlistCount}</span>}
               </NavLink>
 
               <NavLink to="/cart" className="cart-link">
                 <ShoppingCart size={20} />
-                {cartItemCount > 0 && <span className="count">{cartItemCount}</span>}
+                {cartItemCount > 0 && <span className="header-count">{cartItemCount}</span>}
               </NavLink>
 
               {/* Hamburger Menu */}
