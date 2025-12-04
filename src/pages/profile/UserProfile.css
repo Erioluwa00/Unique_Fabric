@@ -244,7 +244,7 @@
   background: rgba(248, 249, 250, 0.8);
   padding: 18px;
   border-radius: 8px;
-  border-left: 4px solid #D4AF37;
+  /* border-left: 4px solid #D4AF37; */
   transition: all 0.3s ease;
 }
 
@@ -266,7 +266,7 @@
   font-size: 1.05rem;
 }
 
-.order-date {
+.user-profile-order-date {
   color: #666;
   font-size: 0.9rem;
 }
@@ -277,7 +277,7 @@
   align-items: center;
 }
 
-.order-total {
+.user-profile-order-total {
   font-weight: 600;
   color: #1A365D;
   font-size: 1.1rem;

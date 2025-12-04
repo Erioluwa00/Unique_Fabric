@@ -233,7 +233,7 @@ const UserProfile = () => {
                                                 <span className="order-number">
                                                     Order #{order.orderNumber || `#${order._id?.slice(-6)}`}
                                                 </span>
-                                                <span className="order-date">
+                                                <span className="user-profile-order-date">
                                                     {formatDate(order.createdAt)}
                                                 </span>
                                             </div>
@@ -241,7 +241,7 @@ const UserProfile = () => {
                                                 <span className={`status-badge status-${order.status?.toLowerCase() || 'pending'}`}>
                                                     {order.status || 'Processing'}
                                                 </span>
-                                                <span className="order-total">
+                                                <span className="user-profile-order-total">
                                                     {formatCurrency(order.totalPrice || 0)}
                                                 </span>
                                             </div>
