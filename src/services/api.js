@@ -88,10 +88,21 @@ export const wishlistAPI = {
 
 // Review API calls
 export const reviewAPI = {
-  getProductReviews: (productId) => API.get(`/reviews/product/${productId}`),
+  getPendingReviews: () => API.get("/reviews/pending"),
+  getMyReviews: (params = {}) => API.get("/reviews/my-reviews", { params }),
+  getProductReviews: (productId, params = {}) => API.get(`/reviews/product/${productId}`, { params }),
   createReview: (data) => API.post("/reviews", data),
   updateReview: (id, data) => API.put(`/reviews/${id}`, data),
   deleteReview: (id) => API.delete(`/reviews/${id}`),
+  markHelpful: (id) => API.post(`/reviews/${id}/helpful`),
+  markUnhelpful: (id) => API.post(`/reviews/${id}/unhelpful`),
+  reportReview: (id, data) => API.post(`/reviews/${id}/report`, data),
+  // Admin only
+  getAllReviews: (params = {}) => API.get("/reviews/admin/all", { params }),
+  adminRemoveReview: (id, data) => API.put(`/reviews/admin/${id}/remove`, data),
+  adminRestoreReview: (id) => API.put(`/reviews/admin/${id}/restore`),
+  adminDeleteReview: (id) => API.delete(`/reviews/admin/${id}`),
+  getReviewStats: () => API.get("/reviews/stats"),
 };
 
 // Upload API calls
@@ -107,6 +118,23 @@ export const uploadAPI = {
     }
   }),
 };
+
+// Settings API calls
+// export const settingsAPI = {
+//   getSettings: () => API.get("/settings"),
+//   updateSettings: (data) => API.put("/settings", data),
+//   getFooterData: () => API.get("/settings/footer"),
+// };
+
+// // Admin User API calls
+// export const adminUserAPI = {
+//   getAdminUsers: () => API.get("/admin/users"),
+//   createAdminUser: (data) => API.post("/admin/users", data),
+//   updateAdminUser: (id, data) => API.put(`/admin/users/${id}`, data),
+//   deleteAdminUser: (id) => API.delete(`/admin/users/${id}`),
+//   changeUserPassword: (id, data) => API.put(`/admin/users/${id}/password`, data),
+// };
+
 
 // Response interceptor for handling common errors
 API.interceptors.response.use(
