@@ -42,7 +42,7 @@ const ProfileLayout = () => {
             </div>
           ) : (
             <div className="mobile-content">
-              <button className="back-btn" onClick={handleBack}>
+              <button className="btn btn-secondary" onClick={handleBack}>
                 ← Back
               </button>
               <Outlet />

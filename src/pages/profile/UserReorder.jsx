@@ -1,17 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { orderAPI, productAPI } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import { FaShoppingCart, FaTrash, FaPlus, FaMinus, FaCheck, FaTimes, FaRedo, FaBox, FaTruck, FaCheckCircle, FaExclamationTriangle, FaInfoCircle, FaArrowRight } from 'react-icons/fa';
+import { CartContext } from '../../context/CartContext';
+import { FaShoppingCart, FaCheck, FaTimes, FaRedo, FaBox, FaTruck, FaCheckCircle, FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 import './UserReorder.css';
 
 const UserReorder = () => {
   const [previousOrders, setPreviousOrders] = useState([]);
-  const [cart, setCart] = useState([]);
-  const [showCart, setShowCart] = useState(false);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
   const { user } = useAuth();
   const quantityRefs = useRef({});
+  
+  // Use CartContext - note: your context has addToCart, not addItem
+  const { addToCart: addToGlobalCart } = useContext(CartContext);
 
   // Auto-clear messages after 4 seconds
   useEffect(() => {
@@ -72,8 +76,10 @@ const UserReorder = () => {
             const product = productsMap[productId];
             const currentStock = product?.stock || 0;
             
+            // Prepare the item in the format your CartContext expects
             return {
               id: productId,
+              _id: productId, // Your cart context checks both id and _id
               name: item.name,
               image: item.image || (product?.imageUrl || '/api/placeholder/80/80'),
               price: item.price,
@@ -81,7 +87,11 @@ const UserReorder = () => {
               unit: 'yard',
               inStock: currentStock > 0,
               currentStock: currentStock,
-              productData: product
+              productData: product,
+              // Add other fields that might be needed
+              category: product?.category || 'Fabric',
+              description: product?.description || '',
+              // Add any other fields your cart might expect
             };
           });
 
@@ -115,10 +125,10 @@ const UserReorder = () => {
     }
   };
 
-  const addToCart = (item, customQuantity) => {
+  const handleAddToCart = (item, customQuantity) => {
     if (!item.inStock) {
       setMessage({ text: `Sorry, ${item.name} is out of stock`, type: 'error' });
-      return;
+      return false;
     }
 
     const quantity = customQuantity || item.quantity;
@@ -129,67 +139,38 @@ const UserReorder = () => {
         type: 'error' 
       });
       const adjustedQuantity = Math.min(quantity, item.currentStock);
-      
-      setCart((prevCart) => {
-        const existingItem = prevCart.find((i) => i.id === item.id);
-        if (existingItem) {
-          const newTotalQuantity = existingItem.quantity + adjustedQuantity;
-          const finalQuantity = Math.min(newTotalQuantity, item.currentStock);
-          
-          return prevCart.map((i) =>
-            i.id === item.id ? { ...i, quantity: finalQuantity } : i
-          );
-        }
-        return [...prevCart, { ...item, quantity: adjustedQuantity }];
-      });
-      
-      setMessage({ 
-        text: `${item.name} (${adjustedQuantity} ${item.unit}) added to cart!`, 
-        type: 'success' 
-      });
+      addItemToGlobalCart(item, adjustedQuantity);
+      return true;
     } else {
-      setCart((prevCart) => {
-        const existingItem = prevCart.find((i) => i.id === item.id);
-        if (existingItem) {
-          return prevCart.map((i) =>
-            i.id === item.id ? { ...i, quantity: i.quantity + quantity } : i
-          );
-        }
-        return [...prevCart, { ...item, quantity }];
-      });
-
-      setMessage({ 
-        text: `${item.name} (${quantity} ${item.unit}) added to cart!`, 
-        type: 'success' 
-      });
+      addItemToGlobalCart(item, quantity);
+      return true;
     }
-    
-    setShowCart(true);
   };
 
-  const removeFromCart = (itemId) => {
-    setCart(cart.filter((item) => item.id !== itemId));
-    setMessage({ text: 'Item removed from cart', type: 'success' });
-  };
-
-  const updateCartQuantity = (itemId, newQuantity) => {
-    if (newQuantity < 1) {
-      removeFromCart(itemId);
-      return;
-    }
+  // Add items to the global cart using CartContext
+  const addItemToGlobalCart = (item, quantity) => {
+    // Prepare the product object in the format your CartContext expects
+    const productForCart = {
+      id: item.id,
+      _id: item.id, // Your cart context checks both
+      name: item.name,
+      price: item.price,
+      image: item.image,
+      // Include all fields that might be needed for cart display
+      category: item.category || item.productData?.category || 'Fabric',
+      description: item.description || item.productData?.description || '',
+      stock: item.currentStock,
+      // Include any other fields from productData that might be useful
+      ...(item.productData && { ...item.productData })
+    };
     
-    const cartItem = cart.find(item => item.id === itemId);
-    if (cartItem && cartItem.currentStock && newQuantity > cartItem.currentStock) {
-      setMessage({ 
-        text: `Only ${cartItem.currentStock} ${cartItem.unit} available`, 
-        type: 'error' 
-      });
-      return;
-    }
+    // Call the CartContext's addToCart function
+    addToGlobalCart(productForCart, quantity);
     
-    setCart(cart.map((item) =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
-    ));
+    setMessage({ 
+      text: `${item.name} (${quantity} ${item.unit || 'yard'}) added to cart!`, 
+      type: 'success' 
+    });
   };
 
   const reorderEntireOrder = (order) => {
@@ -207,38 +188,18 @@ const UserReorder = () => {
         ? Math.min(item.quantity, item.currentStock)
         : item.quantity;
       
-      addToCart(item, quantityToAdd);
-      addedCount++;
+      if (handleAddToCart(item, quantityToAdd)) {
+        addedCount++;
+      }
     });
 
-    setMessage({
-      text: `Added ${addedCount} item(s) to cart. ${
-        outOfStockItems.length > 0
-          ? `${outOfStockItems.length} item(s) out of stock.`
-          : 'All items added successfully!'
-      }`,
-      type: 'success',
+    // Show modal with success message
+    setModalMessage({
+      addedCount,
+      outOfStockCount: outOfStockItems.length,
+      hasOutOfStock: outOfStockItems.length > 0
     });
-    setShowCart(true);
-  };
-
-  const getCartTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
-  };
-
-  const proceedToCheckout = () => {
-    if (cart.length === 0) {
-      setMessage({ text: 'Your cart is empty', type: 'error' });
-      return;
-    }
-
-    localStorage.setItem('reorderCart', JSON.stringify(cart));
-    window.location.href = '/checkout';
-  };
-
-  const clearCart = () => {
-    setCart([]);
-    setMessage({ text: 'Cart cleared', type: 'success' });
+    setShowSuccessModal(true);
   };
 
   const formatDate = (dateString) => {
@@ -252,12 +213,57 @@ const UserReorder = () => {
     });
   };
 
+  const handleContinueShopping = () => {
+    setShowSuccessModal(false);
+  };
+
+  const handleGoToCart = () => {
+    window.location.href = '/cart';
+  };
+
+  // Success Modal Component
+  const SuccessModal = ({ message, onContinue, onGoToCart }) => {
+    if (!message) return null;
+    
+    return (
+      <div className="success-modal-overlay">
+        <div className="success-modal">
+          <div className="success-modal-header">
+            <FaCheckCircle className="success-icon" />
+            <h3>Items Added to Cart!</h3>
+          </div>
+          <div className="success-modal-body">
+            <p>
+              Successfully added <strong>{message.addedCount} item(s)</strong> to your cart.
+              {message.hasOutOfStock && (
+                <span className="out-of-stock-note">
+                  <br />
+                  <FaExclamationTriangle className="warning-icon" />
+                  {message.outOfStockCount} item(s) were out of stock and not added.
+                </span>
+              )}
+            </p>
+          </div>
+          <div className="success-modal-footer">
+            <button className="continue-shopping-btn" onClick={onContinue}>
+              Continue Shopping
+            </button>
+            <button className="go-to-cart-btn" onClick={onGoToCart}>
+              <FaShoppingCart />
+              Go to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <div className="user-reorder">
         <div className="profile-container">
           <div className="loading-container">
-            <div className="loading-spinner"></div>
+            <div className="reorder-loading-spinner"></div>
             <h2 className="loading-text">Loading your order history...</h2>
             <p className="loading-subtext">We're fetching your previous orders</p>
           </div>
@@ -287,102 +293,6 @@ const UserReorder = () => {
               <button onClick={() => setMessage(null)} className="message-close">
                 <FaTimes />
               </button>
-            </div>
-          </div>
-        )}
-
-        {/* Cart Sidebar */}
-        {showCart && (
-          <div className="cart-sidebar">
-            <div className="cart-sidebar-overlay" onClick={() => setShowCart(false)}></div>
-            <div className="cart-sidebar-content">
-              <div className="cart-header">
-                <div className="cart-header-title">
-                  <FaShoppingCart className="cart-icon" />
-                  <h3>Reorder Cart ({cart.length})</h3>
-                </div>
-                <button onClick={() => setShowCart(false)} className="cart-close-btn">
-                  <FaTimes />
-                </button>
-              </div>
-
-              <div className="cart-items">
-                {cart.length === 0 ? (
-                  <div className="empty-cart-state">
-                    <FaShoppingCart className="empty-cart-icon" />
-                    <p className="empty-cart-text">Your cart is empty</p>
-                    <p className="empty-cart-subtext">Add items from your previous orders</p>
-                  </div>
-                ) : (
-                  cart.map((item) => (
-                    <div key={item.id} className="cart-item">
-                      <div className="cart-item-image">
-                        <img src={item.image} alt={item.name} />
-                      </div>
-                      <div className="cart-item-details">
-                        <h4 className="cart-item-name">{item.name}</h4>
-                        <div className="cart-item-meta">
-                          <span className="cart-item-price">${item.price}/{item.unit}</span>
-                          {item.currentStock && (
-                            <span className="cart-item-stock">
-                              <FaInfoCircle /> Stock: {item.currentStock} {item.unit}
-                            </span>
-                          )}
-                        </div>
-                        <div className="cart-item-quantity">
-                          <div className="quantity-controls">
-                            <button 
-                              onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
-                              className="quantity-btn minus"
-                            >
-                              <FaMinus />
-                            </button>
-                            <span className="quantity-value">{item.quantity}</span>
-                            <button 
-                              onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
-                              className="quantity-btn plus"
-                              disabled={item.currentStock && item.quantity >= item.currentStock}
-                            >
-                              <FaPlus />
-                            </button>
-                          </div>
-                          <button 
-                            onClick={() => removeFromCart(item.id)}
-                            className="remove-item-btn"
-                          >
-                            <FaTrash />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-
-              {cart.length > 0 && (
-                <div className="cart-footer">
-                  <div className="cart-summary">
-                    <div className="cart-summary-row">
-                      <span>Subtotal</span>
-                      <span>${getCartTotal()}</span>
-                    </div>
-                    <div className="cart-total">
-                      <span>Total</span>
-                      <span className="total-amount">${getCartTotal()}</span>
-                    </div>
-                  </div>
-                  <div className="cart-actions">
-                    <button className="checkout-button" onClick={proceedToCheckout}>
-                      <span>Proceed to Checkout</span>
-                      <FaArrowRight />
-                    </button>
-                    <button className="clear-cart-button" onClick={clearCart}>
-                      <FaTrash />
-                      <span>Clear Cart</span>
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}
@@ -422,7 +332,6 @@ const UserReorder = () => {
                         <div className="order-date">
                           <span className="date-label">Ordered:</span>
                           <span className="date-value">{formatDate(order.orderDate)}</span>
-
                         </div>
                         <div className="order-total">
                           <span className="total-label">Total:</span>
@@ -446,22 +355,22 @@ const UserReorder = () => {
                               <div className="order-item-details">
                                 <div className="order-item-price">
                                   <span className="price-label">Price:</span>
-                                  <span className="price-value">${item.price}/{item.unit}</span>
+                                  <span className="price-value">${item.price}/{item.unit || 'yard'}</span>
                                 </div>
                                 <div className="order-item-quantity">
                                   <span className="quantity-label">Previous:</span>
-                                  <span className="quantity-value">{item.quantity} {item.unit}</span>
+                                  <span className="quantity-value">{item.quantity} {item.unit || 'yard'}</span>
                                 </div>
                                 {item.inStock && (
                                   <div className="order-item-stock">
                                     <span className="stock-label">Available:</span>
-                                    <span className="stock-value">{item.currentStock} {item.unit}</span>
+                                    <span className="stock-value">{item.currentStock} {item.unit || 'yard'}</span>
                                   </div>
                                 )}
                               </div>
                               <div className="order-item-actions">
                                 <div className="quantity-selector">
-                                  <label>Quantity ({item.unit}):</label>
+                                  <label>Quantity ({item.unit || 'yard'}):</label>
                                   <div className="quantity-input-group">
                                     <input
                                       type="number"
@@ -474,7 +383,7 @@ const UserReorder = () => {
                                     />
                                     {item.currentStock && (
                                       <div className="quantity-hint">
-                                        Max: {item.currentStock} {item.unit}
+                                        Max: {item.currentStock} {item.unit || 'yard'}
                                       </div>
                                     )}
                                   </div>
@@ -486,7 +395,7 @@ const UserReorder = () => {
                                     const requestedQty = parseInt(input?.value || String(item.quantity)) || item.quantity;
                                     const maxQty = item.currentStock || item.quantity;
                                     const finalQty = Math.min(requestedQty, maxQty);
-                                    addToCart(item, finalQty);
+                                    handleAddToCart(item, finalQty);
                                   }}
                                   disabled={!item.inStock}
                                 >
@@ -526,18 +435,13 @@ const UserReorder = () => {
           </div>
         </div>
 
-        {/* Floating Cart Button */}
-        {cart.length > 0 && !showCart && (
-          <div className="floating-cart-btn">
-            <button onClick={() => setShowCart(true)} className="floating-cart-button">
-              <div className="cart-badge">{cart.length}</div>
-              <FaShoppingCart className="cart-icon" />
-              <div className="cart-info">
-                <span className="cart-count">{cart.length} items</span>
-                <span className="cart-total">${getCartTotal()}</span>
-              </div>
-            </button>
-          </div>
+        {/* Success Modal */}
+        {showSuccessModal && (
+          <SuccessModal
+            message={modalMessage}
+            onContinue={handleContinueShopping}
+            onGoToCart={handleGoToCart}
+          />
         )}
       </div>
     </div>

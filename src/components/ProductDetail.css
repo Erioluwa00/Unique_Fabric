@@ -1660,6 +1660,79 @@
   font-weight: 500;
 }
 
+/* Helpful button styles */
+.uf-product-helpful-btn {
+  border: 1px solid #E2E8F0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: #F8FAFC;
+  color: #718096;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.uf-product-helpful-btn:hover:not(:disabled) {
+  background-color: rgba(26, 54, 93, 0.05);
+  transform: translateY(-1px);
+}
+
+.uf-product-helpful-btn.uf-product-helpful-active {
+  background-color: rgba(26, 54, 93, 0.1);
+  color: #1A365D;
+  border-color: #1A365D;
+}
+
+.uf-product-helpful-btn.uf-product-helpful-active .uf-product-helpful-icon {
+  color: #1A365D;
+}
+
+.uf-product-helpful-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.uf-product-helpful-btn .uf-product-helpful-icon {
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+/* Report button */
+.uf-product-report-btn {
+  border: 1px solid #E2E8F0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: #F8FAFC;
+  color: #718096;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.uf-product-report-btn:hover:not(:disabled) {
+  background-color: rgba(231, 76, 60, 0.05);
+  color: #E74C3C;
+  border-color: #E74C3C;
+}
+
+.uf-product-report-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Review footer */
+.uf-product-review-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #E2E8F0;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .uf-product-reviews-container {

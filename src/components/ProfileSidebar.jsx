@@ -101,6 +101,7 @@ const ProfileSidebar = ({ onLinkClick }) => {
               className={({ isActive }) =>
                 isActive ? "up-link active" : "up-link"
               }
+               onClick={onLinkClick}
             >
               <FaAddressBook className="icon" /> Reorder
             </NavLink>
@@ -111,6 +112,7 @@ const ProfileSidebar = ({ onLinkClick }) => {
               className={({ isActive }) =>
                 isActive ? "up-link active" : "up-link"
               }
+               onClick={onLinkClick}
             >
               <FaNewspaper className="icon" /> Newsletter Preferences
             </NavLink>

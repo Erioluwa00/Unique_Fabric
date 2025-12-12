@@ -13,6 +13,19 @@ API.interceptors.request.use((config) => {
   return config;
 });
 
+// Response interceptor for handling common errors
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Token expired or invalid
+      localStorage.removeItem("fabricToken");
+      window.location.href = "/login";
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Address API calls
 export const addressAPI = {
   getAddresses: () => API.get("/addresses"),
@@ -86,17 +99,31 @@ export const wishlistAPI = {
   removeFromWishlist: (id) => API.delete(`/wishlist/${id}`),
 };
 
-// Review API calls
+// Review API calls - UPDATED for helpful toggle functionality
 export const reviewAPI = {
+  // User review management
   getPendingReviews: () => API.get("/reviews/pending"),
   getMyReviews: (params = {}) => API.get("/reviews/my-reviews", { params }),
+  
+  // Product reviews - updated to include userId parameter
   getProductReviews: (productId, params = {}) => API.get(`/reviews/product/${productId}`, { params }),
+  
+  // Review CRUD
   createReview: (data) => API.post("/reviews", data),
   updateReview: (id, data) => API.put(`/reviews/${id}`, data),
   deleteReview: (id) => API.delete(`/reviews/${id}`),
-  markHelpful: (id) => API.post(`/reviews/${id}/helpful`),
-  markUnhelpful: (id) => API.post(`/reviews/${id}/unhelpful`),
-  reportReview: (id, data) => API.post(`/reviews/${id}/report`, data),
+  
+  // Helpful functionality - UPDATED
+  toggleHelpful: (reviewId) => API.post(`/reviews/${reviewId}/helpful`),
+  getHelpfulStatus: (reviewId) => API.get(`/reviews/${reviewId}/helpful-status`),
+  getUserHelpfulVotes: () => API.get("/reviews/helpful/user-votes"),
+  
+  // Keep old methods for backward compatibility (alias to toggleHelpful)
+  markHelpful: (reviewId) => API.post(`/reviews/${reviewId}/helpful`),
+  
+  // Report
+  reportReview: (reviewId, data) => API.post(`/reviews/${reviewId}/report`, data),
+  
   // Admin only
   getAllReviews: (params = {}) => API.get("/reviews/admin/all", { params }),
   adminRemoveReview: (id, data) => API.put(`/reviews/admin/${id}/remove`, data),
@@ -119,34 +146,53 @@ export const uploadAPI = {
   }),
 };
 
-// Settings API calls
-// export const settingsAPI = {
-//   getSettings: () => API.get("/settings"),
-//   updateSettings: (data) => API.put("/settings", data),
-//   getFooterData: () => API.get("/settings/footer"),
-// };
-
-// // Admin User API calls
-// export const adminUserAPI = {
-//   getAdminUsers: () => API.get("/admin/users"),
-//   createAdminUser: (data) => API.post("/admin/users", data),
-//   updateAdminUser: (id, data) => API.put(`/admin/users/${id}`, data),
-//   deleteAdminUser: (id) => API.delete(`/admin/users/${id}`),
-//   changeUserPassword: (id, data) => API.put(`/admin/users/${id}/password`, data),
-// };
-
-
-// Response interceptor for handling common errors
-API.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Token expired or invalid
-      localStorage.removeItem("fabricToken");
-      window.location.href = "/login";
+// Utility function for handling API errors
+export const handleApiError = (error, customMessage = null) => {
+  if (error.response) {
+    // Server responded with error status
+    const status = error.response.status;
+    const message = error.response.data?.message || 'Server error';
+    
+    switch (status) {
+      case 400:
+        return customMessage || `Bad Request: ${message}`;
+      case 401:
+        return customMessage || 'Session expired. Please login again.';
+      case 403:
+        return customMessage || 'Access denied. You do not have permission.';
+      case 404:
+        return customMessage || 'Resource not found.';
+      case 409:
+        return customMessage || 'Conflict: The request could not be completed.';
+      case 422:
+        return customMessage || 'Validation error: Please check your input.';
+      case 429:
+        return customMessage || 'Too many requests. Please try again later.';
+      case 500:
+        return customMessage || 'Server error. Please try again later.';
+      default:
+        return customMessage || `Error ${status}: ${message}`;
     }
-    return Promise.reject(error);
+  } else if (error.request) {
+    // Request made but no response
+    return customMessage || 'Network error. Please check your connection.';
+  } else {
+    // Something else happened
+    return customMessage || error.message || 'An unexpected error occurred.';
   }
-);
+};
 
+// Utility function for making requests with error handling
+export const apiRequest = async (apiCall, errorMessage = null) => {
+  try {
+    const response = await apiCall();
+    return { success: true, data: response.data };
+  } catch (error) {
+    const message = handleApiError(error, errorMessage);
+    console.error('API Request Failed:', error);
+    return { success: false, error: message, details: error };
+  }
+};
+
+// Export API instance for direct use if needed
 export default API;

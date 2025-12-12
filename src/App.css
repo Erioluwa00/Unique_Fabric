@@ -79,8 +79,11 @@ span {
   background: #b8941f;
 }
 
-.btn-secondary {
+/* .btn-secondary {
   background: #2d3748;
+} */
+ .btn-secondary {
+  background: #1A365D;
 }
 
 .btn-secondary:hover {

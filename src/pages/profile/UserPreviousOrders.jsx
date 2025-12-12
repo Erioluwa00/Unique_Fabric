@@ -130,7 +130,7 @@ const UserPreviousOrders = () => {
       <div className="orders-list">
         {filteredOrders.map((order) => (
           <div key={order._id} className="order-card">
-            <div className="order-header">
+            <div className="previous-order-header">
               <div className="order-info">
                 <h4 className="order-id">Order #{order.orderNumber}</h4>
                 <span className="order-date">
@@ -177,7 +177,7 @@ const UserPreviousOrders = () => {
                       e.target.src = "/images/placeholder-fabric.jpg";
                     }}
                   />
-                  <div className="order-item-details">
+                  <div className="previous-order-item-details">
                     <span className="order-item-name">{item.name}</span>
                     <br></br>
                     <span className="order-item-quantity">

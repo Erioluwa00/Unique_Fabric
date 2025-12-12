@@ -1,122 +1,495 @@
-   :root {
-            --primary-color: #f68b1e; /* Jumia-like Orange */
-            --text-color-dark: #333333;
-            --text-color-light: #666666;
-            --border-color: #e0e0e0;
-        }
+/* UserNewsletterPreference.css - Updated Design */
 
-     
+:root {
+  --primary-blue: #1A365D;
+  --accent-gold: #D4AF37;
+  --background-light: #F8FAFC;
+  --text-dark: #1A365D;
+  --text-light: #718096;
+  --border-color: #E2E8F0;
+  --success-green: #38A169;
+  --error-red: #E53E3E;
+  --white: #FFFFFF;
+  --light-gray: #F7FAFC;
+}
 
-        /* Main Container - Unique Class: nl-page-container */
-        .nl-page-container {
-            background-color: #ffffff;
-            max-width: 900px;
-            width: 100%;
-            padding: 40px 0;
-            margin: 0 auto; 
-        }
+.nl-page-container {
+  min-height: 100vh;
+  background: var(--background-light);
+  padding: 40px 20px;
+}
 
-        /* Header Styles - Unique Class: nl-page-title */
-        .nl-page-title {
-            font-size: 1.8rem;
-            font-weight: 900;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
+.nl-content-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
 
-        /* Section Title - Unique Class: nl-section-header */
-        .nl-section-header {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-color-dark);
-            margin-bottom: 20px;
-        }
+.nl-header {
+  background: var(--primary-blue);
+  padding: 40px;
+  text-align: center;
+  border-bottom: 4px solid var(--accent-gold);
+}
 
-        /* Input Group - Unique Class: nl-input-group */
-        .nl-input-group {
-            margin-bottom: 25px;
-        }
+.nl-page-title {
+  color: var(--white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
 
-        /* Radio Option - Unique Class: nl-frequency-option */
-        .nl-frequency-option,
-        /* Checkbox Option - Unique Class: nl-policy-checkbox */
-        .nl-policy-checkbox {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 35px;
-            cursor: pointer;
-        }
+.nl-title-icon {
+  color: var(--accent-gold);
+  font-size: 2.2rem;
+}
 
-        /* Input styling (applies to both radio and checkbox within their new parent classes) */
-        .nl-frequency-option input[type="radio"],
-        .nl-policy-checkbox input[type="checkbox"] {
-            accent-color: var(--primary-color);
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-        
-        /* Label styling */
-        .nl-frequency-option label,
-        .nl-policy-checkbox label {
-            font-size: 1.05rem;
-            color: var(--text-color-dark);
-            cursor: pointer;
-        }
+.nl-page-subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 400;
+}
 
-        /* Specific link style - Unique Class: nl-terms-link */
-        .nl-terms-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
+.nl-form-container {
+  padding: 40px;
+}
 
-        .nl-terms-link:hover {
-            text-decoration: underline;
-        }
+/* Frequency Section */
+.nl-frequency-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
 
-        /* Policy Text Block - Unique Class: nl-consent-text */
-        .nl-consent-text {
-            line-height: 1.4;
-            display: block;
-        }
+.nl-section-header {
+  color: var(--text-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-        /* Save Button Container - Unique Class: nl-btn-wrapper */
-        .nl-btn-wrapper {
-            text-align: center;
-        }
+.nl-section-icon {
+  color: var(--accent-gold);
+}
 
-        /* Save Button Style - Unique Class: nl-save-btn */
-        .nl-save-btn {
-            width: 100%;
-            max-width: 400px; 
-            padding: 15px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background-color 0.2s, box-shadow 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-            display: block;
-            margin-left: auto; /* Required for centering the block element */
-            margin-right: auto; /* Required for centering the block element */
-        }
+.nl-frequency-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
 
-        .nl-save-btn:hover {
-            background-color: #e57d17;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.nl-frequency-card {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-        .nl-save-btn:active {
-            background-color: #d17114;
-        }
+.nl-frequency-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-    
+.nl-frequency-label {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 80px;
+}
+
+.nl-frequency-card input[type="radio"]:checked + .nl-frequency-label {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.05);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.nl-frequency-label:hover {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+.nl-radio-indicator {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  margin-right: 15px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nl-frequency-card input[type="radio"]:checked + .nl-frequency-label .nl-radio-indicator {
+  border-color: var(--accent-gold);
+  background: var(--accent-gold);
+}
+
+.nl-frequency-card input[type="radio"]:checked + .nl-frequency-label .nl-radio-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--white);
+  border-radius: 50%;
+}
+
+.nl-frequency-text {
+  flex: 1;
+}
+
+.nl-frequency-title {
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.nl-frequency-description {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Policy Section */
+.nl-policy-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.nl-policy-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.nl-policy-card input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.nl-policy-label {
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  background: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 100px;
+}
+
+.nl-policy-card input[type="checkbox"]:checked + .nl-policy-label {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.05);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.nl-policy-label:hover {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+.nl-checkbox-indicator {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  margin-right: 15px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+  margin-top: 2px;
+}
+
+.nl-policy-card input[type="checkbox"]:checked + .nl-policy-label .nl-checkbox-indicator {
+  border-color: var(--accent-gold);
+  background: var(--accent-gold);
+}
+
+.nl-policy-card input[type="checkbox"]:checked + .nl-policy-label .nl-checkbox-indicator::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--white);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.nl-policy-text {
+  flex: 1;
+}
+
+.nl-policy-main {
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.nl-policy-details {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.nl-terms-link {
+  color: var(--primary-blue);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 1px dashed var(--primary-blue);
+  transition: all 0.2s ease;
+}
+
+.nl-terms-link:hover {
+  color: var(--accent-gold);
+  border-bottom: 1px solid var(--accent-gold);
+}
+
+/* Newsletter Categories */
+.nl-categories-section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--light-gray);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.nl-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.nl-category-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.nl-category-card input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.nl-category-label {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--white);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nl-category-card input[type="checkbox"]:checked + .nl-category-label {
+  border-color: var(--accent-gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.nl-category-label:hover {
+  border-color: var(--primary-blue);
+  transform: translateY(-2px);
+}
+
+.nl-category-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nl-category-card input[type="checkbox"]:checked + .nl-category-label .nl-category-checkbox {
+  border-color: var(--accent-gold);
+  background: var(--accent-gold);
+}
+
+.nl-category-card input[type="checkbox"]:checked + .nl-category-label .nl-category-checkbox::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.nl-category-name {
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Save Button */
+.nl-btn-wrapper {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 2px solid var(--border-color);
+}
+
+.nl-save-btn {
+  background: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(26, 54, 93, 0.2);
+}
+
+.nl-save-btn:hover:not(:disabled) {
+  background: #152a4d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(26, 54, 93, 0.3);
+}
+
+.nl-save-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.nl-save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.nl-save-icon {
+  font-size: 1.2rem;
+}
+
+/* Success Message */
+.nl-success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--success-green);
+  color: var(--white);
+  padding: 15px 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+  z-index: 1000;
+}
+
+.nl-success-icon {
+  font-size: 1.2rem;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nl-page-container {
+    padding: 20px 15px;
+  }
+  
+  .nl-header {
+    padding: 30px 20px;
+  }
+  
+  .nl-page-title {
+    font-size: 2rem;
+  }
+  
+  .nl-form-container {
+    padding: 25px;
+  }
+  
+  .nl-frequency-section,
+  .nl-policy-section,
+  .nl-categories-section {
+    padding: 20px;
+  }
+  
+  .nl-frequency-options,
+  .nl-categories-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nl-save-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nl-header {
+    padding: 25px 15px;
+  }
+  
+  .nl-page-title {
+    font-size: 1.8rem;
+  }
+  
+  .nl-form-container {
+    padding: 20px 15px;
+  }
+  
+  .nl-frequency-label,
+  .nl-policy-label {
+    padding: 15px;
+  }
+}
