@@ -9,7 +9,7 @@ const Shop = () => {
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [displayedProducts, setDisplayedProducts] = useState([]); // Products actually shown
+  const [displayedProducts, setDisplayedProducts] = useState([]); 
   const [filters, setFilters] = useState({
     category: searchParams.get("category") || "",
     color: "",
