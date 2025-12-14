@@ -116,16 +116,7 @@
   overflow: hidden;
 }
 
-.order-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(180deg, #D4AF37 0%, #c19b2a 100%);
-  border-radius: 8px 0 0 8px;
-}
+
 
 .order-card:hover {
   transform: translateY(-6px);

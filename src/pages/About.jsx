@@ -48,20 +48,20 @@ const About = () => {
 
   const team = [
     {
-      name: "Sarah Chen",
-      role: "Founder & CEO",
+      name: "Amole Erioluwa",
+      role: "Co-Dounder & Creative Director",
       image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=400&fit=crop&crop=face",
       bio: "Textile expert with 20+ years in fabric innovation"
     },
     {
       name: "Marcus Johnson",
-      role: "Creative Director",
+      role: "Head of Sustainability",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
       bio: "Former fashion designer passionate about sustainable fabrics"
     },
     {
-      name: "DeezNutz",
-      role: "Head of Sustainability",
+      name: "Owolabi Fawaz.E.",
+      role: "Founder & CEO",
       image: "https://i.pinimg.com/736x/0f/da/9f/0fda9f27627f65764fb316e1958a934c.jpg",
       bio: "Environmental scientist dedicated to eco-friendly practices"
     }
