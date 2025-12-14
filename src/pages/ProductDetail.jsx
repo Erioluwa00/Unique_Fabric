@@ -8,18 +8,23 @@ import ProductSpecs from "../components/ProductSpecs"
 import ProductReviews from "../components/ProductReviews"
 import FabricCalculator from "../components/FabricCalculator"
 import RelatedProducts from "../components/RelatedProducts"
+import '../components/ProductDetail.css';
+
 
 const ProductDetail = () => {
   const { id } = useParams()
+  const { addToCart, updateQuantity, getItemQuantity } = useContext(CartContext)
   const [product, setProduct] = useState(null)
   const [quantity, setQuantity] = useState(1)
   const [selectedTab, setSelectedTab] = useState("description")
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
 
-  const { addToCart } = useContext(CartContext)
   const { addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext)
   const { addToRecentlyViewed } = useRecentlyViewed()
+
+  // Get cart quantity for this product
+  const cartQuantity = product ? (getItemQuantity ? getItemQuantity(product.id) : 0) : 0
 
   // Fetch product from database
   useEffect(() => {
@@ -252,8 +257,22 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    if (product && quantity > 0) {
-      addToCart(product, quantity);
+    if (product) {
+      addToCart(product, 1);
+    }
+  };
+
+  const handleIncrease = () => {
+    if (product) {
+      updateQuantity(product.id, cartQuantity + 1);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (product && cartQuantity > 1) {
+      updateQuantity(product.id, cartQuantity - 1);
+    } else if (product && cartQuantity === 1) {
+      updateQuantity(product.id, 0);
     }
   };
 
@@ -264,12 +283,6 @@ const ProductDetail = () => {
       } else {
         addToWishlist(product);
       }
-    }
-  };
-
-  const handleQuantityChange = (newQuantity) => {
-    if (newQuantity >= 1 && newQuantity <= (product?.stockQuantity || 1)) {
-      setQuantity(newQuantity);
     }
   };
 
@@ -353,34 +366,6 @@ const ProductDetail = () => {
             </div>
 
             <div className="product-purchase">
-              <div className="quantity-selector">
-                <label>Quantity (yards):</label>
-                <div className="quantity-controls">
-                  <button 
-                    onClick={() => handleQuantityChange(quantity - 1)} 
-                    disabled={quantity <= 1}
-                    className="quantity-btn"
-                  >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    value={quantity}
-                    onChange={(e) => handleQuantityChange(Number.parseInt(e.target.value) || 1)}
-                    min="1"
-                    max={product.stockQuantity}
-                    className="quantity-input"
-                  />
-                  <button
-                    onClick={() => handleQuantityChange(quantity + 1)}
-                    disabled={quantity >= product.stockQuantity}
-                    className="quantity-btn"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-
               <div className="stock-info">
                 {product.inStock ? (
                   <span className="in-stock">✓ {product.stockQuantity} yards in stock</span>
@@ -389,20 +374,52 @@ const ProductDetail = () => {
                 )}
               </div>
 
-              <div className="purchase-actions">
-                 <button 
-                  className="btn btn-outline wishlist-btn" 
+              <div className="purchase-actions product-actions-below">
+                <button 
+                  className="btn wishlist-btn" 
                   onClick={handleWishlist}
+                  title={
+                    isInWishlist(product.id)
+                      ? "Remove from wishlist"
+                      : "Add to wishlist"
+                  }
                 >
                   {isInWishlist(product.id) ? "❤️ Remove from Wishlist" : "🤍 Add to Wishlist"}
                 </button>
-                <button 
-                  className="btn btn-primary add-to-cart" 
-                  onClick={handleAddToCart} 
-                  disabled={!product.inStock}
-                >
-                  Add to Cart - ${(product.price * quantity).toFixed(2)}
-                </button>
+                
+                {product.inStock ? (
+                  cartQuantity > 0 ? (
+                    <div className="quantity-controls">
+                      <button 
+                        className="qty-btn" 
+                        onClick={handleDecrease}
+                      >
+                        -
+                      </button>
+                      <span className="qty-value">{cartQuantity}</span>
+                      <button 
+                        className="qty-btn" 
+                        onClick={handleIncrease}
+                      >
+                        +
+                      </button>
+                    </div>
+                  ) : (
+                    <button 
+                      className="btn add-to-cart" 
+                      onClick={handleAddToCart}
+                    >
+                      Add to Cart
+                    </button>
+                  )
+                ) : (
+                  <button 
+                    className="btn out-of-stock-btn" 
+                    disabled
+                  >
+                    Out of Stock
+                  </button>
+                )}
               </div>
             </div>
           </div>

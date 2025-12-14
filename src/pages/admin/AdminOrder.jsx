@@ -833,11 +833,6 @@ const AdminOrder = () => {
                         ))}
                       </select>
                       {updatingStatus === order._id && <span className="updating">Updating...</span>}
-                      {isDisabled && (
-                        <span className="status-note">
-                          ({order.status === "delivered" ? "Final" : "Cancelled"})
-                        </span>
-                      )}
                     </td>
                     <td>
                       <button className="view-btn" onClick={() => openOrderModal(order)}>
@@ -888,11 +883,6 @@ const OrderDetailsModal = ({ order, onClose, getStatusColor }) => {
               <span className="status-badge" style={{ backgroundColor: getStatusColor(order.status) }}>
                 {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
               </span>
-              {(order.status === "delivered" || order.status === "cancelled") && (
-                <span className="final-status-note">
-                  (Final status - cannot be changed)
-                </span>
-              )}
             </div>
             <div className="summary-row">
               <span className="label">Order Date:</span>

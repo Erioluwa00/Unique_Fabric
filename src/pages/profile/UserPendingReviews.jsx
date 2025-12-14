@@ -87,9 +87,7 @@ const UserPendingReviews = () => {
     setReviewForm({ rating: 0, title: '', comment: '', isAnonymous: false });
   };
 
-  const handleSkipReview = (index) => {
-    setPendingReviews(prev => prev.filter((_, i) => i !== index));
-  };
+  // Remove the handleSkipReview function entirely since we don't need it anymore
 
   if (loading) {
     return (
@@ -294,20 +292,19 @@ const UserPendingReviews = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="uf-pending-review-actions">
-                      <button
-                        className="uf-pending-primary-btn"
-                        onClick={() => setActiveReview(index)}
-                      >
-                        <FaStar className="uf-pending-btn-icon" />
-                        Write Review
-                      </button>
-                      <button
-                        className="uf-pending-secondary-btn"
-                        onClick={() => handleSkipReview(index)}
-                      >
-                        Skip for Now
-                      </button>
+                    <div className="uf-pending-review-section">
+                      <div className="uf-pending-review-actions">
+                        <button
+                          className="uf-pending-primary-btn"
+                          onClick={() => setActiveReview(index)}
+                        >
+                          <FaStar className="uf-pending-btn-icon" />
+                          Write Review
+                        </button>
+                      </div>
+                      <p className="uf-pending-review-note">
+                        Your feedback helps other shoppers! You can return anytime to review this purchase.
+                      </p>
                     </div>
                   )}
                 </div>

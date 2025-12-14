@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaThumbsUp, FaUserCircle, FaCheckCircle } from 'react-icons/fa';
 import { reviewAPI } from '../services/api';
-import './ProductDetail.css';
+// import './ProductReviews.css'
 
 const ProductReviews = ({ productId }) => {
   const [reviews, setReviews] = useState([]);
@@ -364,3 +364,5 @@ const ProductReviews = ({ productId }) => {
 };
 
 export default ProductReviews;
+
+
