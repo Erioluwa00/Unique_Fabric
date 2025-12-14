@@ -82,13 +82,13 @@ const About = () => {
         </div>
       </section>
       {/* Stats Section */}
-      <section className="stats-section">
+      <section className="about-stats-section">
         <div className="container">
-          <div className="stats-grid">
+          <div className="about-stats-grid">
             {stats.map((stat, index) => (
-              <div key={index} className="stat-card">
-                <div className="stat-number">{formatCount(counts[index], index)}</div>
-                <div className="stat-label">{stat.label}</div>
+              <div key={index} className="about-stat-card">
+                <div className="about-stat-number">{formatCount(counts[index], index)}</div>
+                <div className="about-stat-label">{stat.label}</div>
               </div>
             ))}
           </div>
