@@ -5,7 +5,7 @@ import './About.css'
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("story");
-  const [counts, setCounts] = useState([0, 0, 0, 0]); // Initial counts for animation
+  const [counts, setCounts] = useState([0, 0, 0, 0]);
 
   const stats = [
     { number: "50K+", label: "Fabrics Sold" },

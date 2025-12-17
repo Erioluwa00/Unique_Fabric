@@ -182,3 +182,14 @@
     font-size: 2rem;
   }
 }
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #1A365D; 
+}
+
+.contact-cards .card-icon svg {
+  display: block;
+  margin: 0 auto;
+}
