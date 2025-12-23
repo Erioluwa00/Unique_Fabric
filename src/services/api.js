@@ -194,5 +194,33 @@ export const apiRequest = async (apiCall, errorMessage = null) => {
   }
 };
 
+// Report API calls
+export const reportAPI = {
+  // KPI Summary
+  getKPISummary: (params) => API.get('/reports/kpi-summary', { params }),
+  
+  // Sales Reports
+  getSalesReport: (params) => API.get('/reports/sales-report', { params }),
+  
+  // Inventory Reports
+  getInventoryReport: (params) => API.get('/reports/inventory-report', { params }),
+  
+  // Customer Reports
+  getCustomerReport: (params) => API.get('/reports/customer-report', { params }),
+  
+  // Fabric Performance
+  getFabricPerformance: (params) => API.get('/reports/fabric-performance', { params }),
+  
+  // Export
+  exportReport: (type, data) => API.post(`/reports/export/${type}`, data),
+  
+  // Saved Reports
+  getSavedReports: () => API.get('/reports/saved'),
+  saveReport: (data) => API.post('/reports/save', data),
+  
+  // Activity Logs
+  getReportLogs: () => API.get('/reports/logs'),
+};
+
 // Export API instance for direct use if needed
 export default API;
