@@ -99,21 +99,21 @@
   border: 1px solid #e2e8f0;
 }
 
-.stat-item {
+.adminProduct-stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.stat-number {
+.adminProduct-stat-number {
   font-size: 32px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
 }
 
-.stat-label {
+.adminProduct-stat-label {
   font-size: 14px;
   color: #64748b;
   font-weight: 500;
@@ -440,7 +440,7 @@
     padding: 16px;
   }
 
-  .stat-item {
+  .adminProduct-stat-item {
     flex: 1;
     min-width: 120px;
   }
@@ -472,7 +472,7 @@
     flex-direction: column;
   }
   
-  .stat-item {
+  .adminProduct-stat-item {
     width: 100%;
   }
   
@@ -583,21 +583,21 @@
   border: 1px solid #e2e8f0;
 }
 
-.stat-item {
+.adminProduct-stat-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
 
-.stat-number {
+.adminProduct-stat-number {
   font-size: 32px;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 4px;
 }
 
-.stat-label {
+.adminProduct-stat-label {
   font-size: 14px;
   color: #64748b;
   font-weight: 500;
@@ -1042,7 +1042,7 @@
     padding: 16px;
   }
 
-  .stat-item {
+  .adminProduct-stat-item {
     flex: 1;
     min-width: 120px;
   }
@@ -1079,7 +1079,7 @@
     flex-direction: column;
   }
   
-  .stat-item {
+  .adminProduct-stat-item {
     width: 100%;
   }
 }

@@ -159,3 +159,8 @@ body {
     width: calc(100% - 260px); /* Ensure it fills remaining space */
   }
 }
+@media(max-width: 1200px){
+  .admin-content{
+    margin-left: 80px;
+  }
+}

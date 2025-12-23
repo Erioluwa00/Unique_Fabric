@@ -721,39 +721,39 @@ const AdminOrder = () => {
 
       {/* Order Stats */}
       <div className="order-stats">
-        <div className="stat-item">
-          <span className="stat-number">{stats.total}</span>
-          <span className="stat-label">Total Orders</span>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number">{stats.total}</span>
+          <span className="adminOrder-stat-label">Total Orders</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number" style={{ color: getStatusColor("pending") }}>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number" style={{ color: getStatusColor("pending") }}>
             {stats.pending}
           </span>
-          <span className="stat-label">Pending</span>
+          <span className="adminOrder-stat-label">Pending</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number" style={{ color: getStatusColor("processing") }}>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number" style={{ color: getStatusColor("processing") }}>
             {stats.processing}
           </span>
-          <span className="stat-label">Processing</span>
+          <span className="adminOrder-stat-label">Processing</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number" style={{ color: getStatusColor("shipped") }}>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number" style={{ color: getStatusColor("shipped") }}>
             {stats.shipped}
           </span>
-          <span className="stat-label">Shipped</span>
+          <span className="adminOrder-stat-label">Shipped</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number" style={{ color: getStatusColor("delivered") }}>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number" style={{ color: getStatusColor("delivered") }}>
             {stats.delivered}
           </span>
-          <span className="stat-label">Delivered</span>
+          <span className="adminOrder-stat-label">Delivered</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number" style={{ color: getStatusColor("cancelled") }}>
+        <div className="adminOrder-stat-item">
+          <span className="adminOrder-stat-number" style={{ color: getStatusColor("cancelled") }}>
             {stats.cancelled}
           </span>
-          <span className="stat-label">Cancelled</span>
+          <span className="adminOrder-stat-label">Cancelled</span>
         </div>
       </div>
 
