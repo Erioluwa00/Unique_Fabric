@@ -44,7 +44,7 @@
   margin: 2rem 0;
 }
 
-.stat-item {
+.adminOrder-stat-item {
   background: white;
   padding: 1.5rem;
   border-radius: 8px;
@@ -53,7 +53,7 @@
   border: 1px solid #e2e8f0;
 }
 
-.stat-number {
+.adminOrder-stat-number {
   display: block;
   font-size: 2rem;
   font-weight: bold;
@@ -61,7 +61,7 @@
   color: #1e293b;
 }
 
-.stat-label {
+.adminOrder-stat-label {
   font-size: 0.9rem;
   color: #64748b;
   text-transform: uppercase;
@@ -505,7 +505,7 @@
     gap: 16px;
   }
 
-  .stat-item {
+  .adminOrder-stat-item {
     min-width: 80px;
   }
 

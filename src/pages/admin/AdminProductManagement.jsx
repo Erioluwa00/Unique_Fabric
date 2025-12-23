@@ -235,23 +235,23 @@ const AdminProductManagement = () => {
 
       {/* Product Stats */}
       <div className="product-stats">
-        <div className="stat-item">
-          <span className="stat-number">{products.length}</span>
-          <span className="stat-label">Total Products</span>
+        <div className="adminProduct-stat-item">
+          <span className="adminProduct-stat-number">{products.length}</span>
+          <span className="adminProduct-stat-label">Total Products</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number">{products.filter((p) => p.stock > 0).length}</span>
-          <span className="stat-label">In Stock</span>
+        <div className="adminProduct-stat-item">
+          <span className="adminProduct-stat-number">{products.filter((p) => p.stock > 0).length}</span>
+          <span className="adminProduct-stat-label">In Stock</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number">
+        <div className="adminProduct-stat-item">
+          <span className="adminProduct-stat-number">
             {products.filter((p) => p.stock > 0 && p.stock <= 10).length}
           </span>
-          <span className="stat-label">Low Stock</span>
+          <span className="adminProduct-stat-label">Low Stock</span>
         </div>
-        <div className="stat-item">
-          <span className="stat-number">{products.filter((p) => p.stock === 0).length}</span>
-          <span className="stat-label">Out of Stock</span>
+        <div className="adminProduct-stat-item">
+          <span className="adminProduct-stat-number">{products.filter((p) => p.stock === 0).length}</span>
+          <span className="adminProduct-stat-label">Out of Stock</span>
         </div>
       </div>
 
