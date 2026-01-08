@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { FaStar, FaShoppingBag, FaCalendarAlt, FaDollarSign, FaCheckCircle } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaStar, FaShoppingBag, FaCalendarAlt, FaDollarSign, FaCheckCircle, FaImage } from 'react-icons/fa';
 import { reviewAPI } from '../../services/api';
 import './UserPendingReviews.css';
 
@@ -14,6 +14,8 @@ const UserPendingReviews = () => {
     comment: '',
     isAnonymous: false
   });
+  const [imageErrors, setImageErrors] = useState({});
+  const containerRef = useRef(null);
 
   useEffect(() => {
     fetchPendingReviews();
@@ -26,6 +28,8 @@ const UserPendingReviews = () => {
       const response = await reviewAPI.getPendingReviews();
       if (response.data.success) {
         setPendingReviews(response.data.pendingReviews);
+        // Reset image errors when new data loads
+        setImageErrors({});
       }
     } catch (err) {
       console.error('Error fetching pending reviews:', err.response?.data || err);
@@ -63,7 +67,7 @@ const UserPendingReviews = () => {
       
       if (err.response?.data?.error === 'User has already reviewed this product from this order') {
         alert('You have already reviewed this product from this order.');
-        fetchPendingReviews(); // Refresh to get updated list
+        fetchPendingReviews();
       } else {
         alert(errorMessage);
       }
@@ -87,7 +91,9 @@ const UserPendingReviews = () => {
     setReviewForm({ rating: 0, title: '', comment: '', isAnonymous: false });
   };
 
-  // Remove the handleSkipReview function entirely since we don't need it anymore
+  const handleImageError = (index) => {
+    setImageErrors(prev => ({ ...prev, [index]: true }));
+  };
 
   if (loading) {
     return (
@@ -125,7 +131,7 @@ const UserPendingReviews = () => {
   }
 
   return (
-    <div className="uf-pending-reviews-dashboard">
+    <div className="uf-pending-reviews-dashboard" ref={containerRef}>
       <div className="uf-pending-reviews-container">
         <div className="uf-pending-reviews-header">
           <h1 className="uf-pending-page-title">
@@ -154,17 +160,25 @@ const UserPendingReviews = () => {
 
             <div className="uf-pending-reviews-list">
               {pendingReviews.map((item, index) => (
-                <div key={index} className="uf-pending-review-card">
+                <div key={`${item.order._id}-${item.product._id}`} className="uf-pending-review-card">
                   <div className="uf-pending-product-section">
                     <div className="uf-pending-product-image-wrapper">
-                      <img 
-                        src={item.product.image || '/images/default-product.jpg'} 
-                        alt={item.product.name} 
-                        className="uf-pending-product-image"
-                        onError={(e) => {
-                          e.target.src = '/images/default-product.jpg';
-                        }}
-                      />
+                      <div className="uf-pending-product-image-container">
+                        {imageErrors[index] ? (
+                          <div className="uf-pending-image-placeholder">
+                            <FaImage className="uf-pending-placeholder-icon" />
+                            <span>No Image</span>
+                          </div>
+                        ) : (
+                          <img 
+                            src={item.product.image || '/images/default-product.jpg'} 
+                            alt={item.product.name} 
+                            className="uf-pending-product-image"
+                            loading="lazy"
+                            onError={() => handleImageError(index)}
+                          />
+                        )}
+                      </div>
                       <div className="uf-pending-product-badge">
                         <FaShoppingBag />
                       </div>
@@ -177,7 +191,7 @@ const UserPendingReviews = () => {
                           {item.product.category || 'General'}
                         </span>
                         <span className="uf-pending-product-price">
-                          <FaDollarSign /> {item.product.price.toFixed(2)}
+                          <FaDollarSign /> {item.product.price?.toFixed(2) || '0.00'}
                         </span>
                       </div>
                       
