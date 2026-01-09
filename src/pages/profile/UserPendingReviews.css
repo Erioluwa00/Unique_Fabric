@@ -1,30 +1,25 @@
 /* User Pending Reviews Dashboard Styles - Unique Fabric */
 .uf-pending-reviews-dashboard {
   min-height: calc(100vh - 200px);
-  background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+  /* background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%); */
   padding: 30px 20px;
+  position: relative;
+  overflow-x: hidden;
 }
 
-.uf-pending-reviews-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
+
 
 /* Header Section */
 .uf-pending-reviews-header {
-  background: linear-gradient(135deg, #1a356D 0%, #2a4580 100%);
-  padding: 40px 30px;
+  /* background: linear-gradient(135deg, #1a356D 0%, #2a4580 100%); */
+  /* padding: 40px 30px; */
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
 }
 
-.uf-pending-reviews-header::before {
+/* .uf-pending-reviews-header::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -33,7 +28,7 @@
   height: 200%;
   background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
   animation: uf-pending-float 20s infinite linear;
-}
+} */
 
 @keyframes uf-pending-float {
   0% {
@@ -86,6 +81,11 @@
 .uf-pending-loading-state {
   padding: 80px 20px;
   text-align: center;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .uf-pending-loading-state .uf-pending-spinner {
@@ -154,7 +154,7 @@
   font-weight: 500;
   cursor: pointer;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -182,7 +182,7 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   padding: 30px;
-  background: #f8fafc;
+  /* background: #f8fafc; */
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -191,9 +191,9 @@
   padding: 25px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(15, 15, 15, 0.05);
   border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .uf-pending-stat-item:hover {
@@ -237,7 +237,7 @@
   overflow: hidden;
   box-shadow: 0 5px 20px rgba(0,0,0,0.08);
   border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   position: relative;
 }
 
@@ -246,16 +246,6 @@
   box-shadow: 0 15px 35px rgba(0,0,0,0.12);
   border-color: #cbd5e0;
 }
-
-/* .uf-pending-review-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(to bottom, #1a356D, #2a4580);
-} */
 
 /* Product Section */
 .uf-pending-product-section {
@@ -280,19 +270,47 @@
   flex-shrink: 0;
 }
 
-.uf-pending-product-image {
+.uf-pending-product-image-container {
+  position: relative;
   width: 180px;
   height: 180px;
-  object-fit: cover;
+  background: #f8fafc;
   border-radius: 12px;
+  overflow: hidden;
   border: 3px solid white;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.uf-pending-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.3s ease;
   background-color: #f8fafc;
+  display: block;
 }
 
 .uf-pending-review-card:hover .uf-pending-product-image {
   transform: scale(1.05);
+}
+
+.uf-pending-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.uf-pending-placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #94a3b8;
 }
 
 .uf-pending-product-badge {
@@ -310,6 +328,7 @@
   font-size: 18px;
   box-shadow: 0 4px 12px rgba(26, 53, 109, 0.3);
   animation: uf-pending-bounce 2s infinite;
+  z-index: 2;
 }
 
 @keyframes uf-pending-bounce {
@@ -319,6 +338,7 @@
 
 .uf-pending-product-details {
   flex: 1;
+  min-width: 0; /* Prevent flex item from overflowing */
 }
 
 .uf-pending-product-name {
@@ -327,6 +347,7 @@
   margin: 0 0 15px 0;
   font-weight: 600;
   line-height: 1.3;
+  word-break: break-word;
 }
 
 .uf-pending-product-meta {
@@ -346,6 +367,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .uf-pending-product-price {
@@ -355,6 +377,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
+  white-space: nowrap;
 }
 
 .uf-pending-product-price svg {
@@ -378,6 +401,9 @@
   gap: 12px;
   color: #4a5568;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .uf-pending-order-icon {
@@ -385,6 +411,7 @@
   font-size: 14px;
   width: 20px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .uf-pending-order-detail.uf-pending-verified-purchase {
@@ -396,7 +423,7 @@
   color: #38a169;
 }
 
-/* Review Section (Updated for single button design) */
+/* Review Section */
 .uf-pending-review-section {
   display: flex;
   flex-direction: column;
@@ -426,7 +453,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-width: 250px;
   max-width: 350px;
   width: 100%;
@@ -455,16 +482,10 @@
   max-width: 500px;
   margin: 0 auto;
   font-style: italic;
-  padding: 0 20px;
-  background: rgba(255, 255, 255, 0.7);
   padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.uf-pending-review-note strong {
-  color: #1a356D;
-  font-weight: 600;
 }
 
 /* Review Form Wrapper */
@@ -472,13 +493,13 @@
   padding: 30px;
   background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
   border-top: 1px solid #e2e8f0;
-  animation: uf-pending-slideDown 0.4s ease-out;
+  animation: uf-pending-slideDown 0.3s ease-out;
 }
 
 @keyframes uf-pending-slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -513,7 +534,7 @@
 .uf-pending-star-rating {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-bottom: 5px;
 }
@@ -527,6 +548,11 @@
   padding: 5px;
   transition: all 0.2s ease;
   line-height: 1;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .uf-pending-star-btn:hover {
@@ -544,6 +570,7 @@
   font-size: 15px;
   font-weight: 500;
   margin-left: 10px;
+  white-space: nowrap;
 }
 
 /* Form Inputs */
@@ -557,7 +584,8 @@
   font-family: inherit;
   color: #4a5568;
   background: white;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .uf-pending-form-input:focus,
@@ -607,7 +635,8 @@
   border-radius: 4px;
   position: relative;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .uf-pending-checkbox:checked {
@@ -661,7 +690,7 @@
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   flex: 1;
 }
 
@@ -681,7 +710,7 @@
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   flex: 1;
   box-shadow: 0 4px 15px rgba(26, 53, 109, 0.3);
 }
@@ -765,7 +794,7 @@
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   min-width: 200px;
   box-shadow: 0 4px 15px rgba(26, 53, 109, 0.3);
 }
@@ -784,7 +813,7 @@
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   min-width: 200px;
 }
 
@@ -806,11 +835,16 @@
   .uf-pending-stats-bar {
     grid-template-columns: 1fr;
   }
+  
+  .uf-pending-product-image-container {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 @media (max-width: 768px) {
   .uf-pending-reviews-header {
-    padding: 30px 20px;
+    /* padding: 30px 20px; */
   }
   
   .uf-pending-page-title {
@@ -825,11 +859,6 @@
   
   .uf-pending-page-subtitle {
     font-size: 15px;
-  }
-  
-  .uf-pending-product-image {
-    width: 150px;
-    height: 150px;
   }
   
   .uf-pending-review-form {
@@ -869,7 +898,7 @@
   }
   
   .uf-pending-reviews-header {
-    padding: 25px 15px;
+    /* padding: 25px 15px; */
   }
   
   .uf-pending-page-title {
@@ -882,6 +911,11 @@
   
   .uf-pending-product-section {
     padding: 20px;
+  }
+  
+  .uf-pending-product-image-container {
+    width: 120px;
+    height: 120px;
   }
   
   .uf-pending-review-form-wrapper {
@@ -925,4 +959,33 @@
 
 .uf-pending-review-note {
   animation: uf-pending-fadeIn 0.5s ease-out;
+}
+
+/* Performance optimizations */
+.uf-pending-review-card {
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+.uf-pending-product-image {
+  will-change: transform;
+}
+
+/* Scrollbar styling */
+.uf-pending-reviews-dashboard::-webkit-scrollbar {
+  width: 8px;
+}
+
+.uf-pending-reviews-dashboard::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.uf-pending-reviews-dashboard::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.uf-pending-reviews-dashboard::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
