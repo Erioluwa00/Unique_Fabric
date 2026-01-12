@@ -4,9 +4,6 @@ import { reportAPI } from '../../services/api';
 import { apiRequest } from '../../services/api';
 import { 
   FiDownload, 
-  FiTrash2, 
-  FiEye, 
-  FiSave, 
   FiBookmark,
   FiCalendar,
   FiBarChart2,
