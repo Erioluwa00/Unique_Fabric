@@ -474,7 +474,7 @@ const UserAddressPayment = () => {
 
             {showPaymentForm && (
               <div className="form-overlay">
-                <div className="form-container">
+                <div className="user-address-form-container">
                   <h4>{editingPayment ? 'Edit Payment Method' : 'Add New Card'}</h4>
                   <form onSubmit={handlePaymentSubmit}>
                     <div className="form-group">
@@ -653,7 +653,7 @@ const UserAddressPayment = () => {
 
             {showAddressForm && (
               <div className="form-overlay">
-                <div className="form-container">
+                <div className="user-address-form-container">
                   <h4>{editingAddress ? 'Edit Address' : 'Add New Address'}</h4>
                   <form onSubmit={handleAddressSubmit}>
                     <div className="form-row">

@@ -59,12 +59,12 @@ const Wishlist = () => {
                 </Link>
                 <div className="item-price">${item.price}/yard</div>
 
-                <div className="item-actions">
+                <div className="wishlist-item-actions">
                   <button className="btn btn-primary" onClick={() => handleAddToCart(item)}>
                     Add to Cart
                   </button>
                   <button
-                    className="remove-btn"
+                    className="wishlist-remove-btn"
                     onClick={() => removeFromWishlist(item.id)}
                     title="Remove from wishlist"
                   >

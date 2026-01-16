@@ -3,72 +3,71 @@ import { createContext, useState, useEffect } from "react"
 export const WishlistContext = createContext()
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlistItems, setWishlistItems] = useState([])
+  // ✅ Lazy initialization (loads before first render)
+  const [wishlistItems, setWishlistItems] = useState(() => {
+    try {
+      const savedWishlist = localStorage.getItem("fabricWishlist")
+      if (!savedWishlist) return []
 
-  // Load wishlist from localStorage on mount
-  useEffect(() => {
-    const savedWishlist = localStorage.getItem("fabricWishlist")
-    if (savedWishlist) {
-      try {
-        const parsedWishlist = JSON.parse(savedWishlist)
-        // Ensure all items have proper id field
-        const normalizedWishlist = parsedWishlist.map(item => ({
-          ...item,
-          id: item.id || item._id // Handle both id and _id
-        }))
-        setWishlistItems(normalizedWishlist)
-      } catch (error) {
-        console.error("Error parsing wishlist from localStorage:", error)
-        setWishlistItems([])
-      }
+      return JSON.parse(savedWishlist).map(item => ({
+        ...item,
+        id: item.id || item._id,
+      }))
+    } catch (error) {
+      console.error("Failed to load wishlist:", error)
+      return []
     }
-  }, [])
+  })
 
-  // Save wishlist to localStorage whenever it changes
+  // ✅ Persist wishlist on every change
   useEffect(() => {
     localStorage.setItem("fabricWishlist", JSON.stringify(wishlistItems))
   }, [wishlistItems])
 
   const addToWishlist = (product) => {
-    setWishlistItems((prevItems) => {
-      // Ensure product has proper id field
+    setWishlistItems(prevItems => {
       const normalizedProduct = {
         ...product,
-        id: product.id || product._id
+        id: product.id || product._id,
       }
-      
-      const exists = prevItems.find((item) => item.id === normalizedProduct.id)
-      if (!exists) {
-        return [...prevItems, normalizedProduct]
-      }
-      return prevItems
+
+      const exists = prevItems.some(item => item.id === normalizedProduct.id)
+      if (exists) return prevItems
+
+      return [...prevItems, normalizedProduct]
     })
   }
 
   const removeFromWishlist = (productId) => {
-    setWishlistItems((prevItems) => prevItems.filter((item) => item.id !== productId))
-  }
-
-  const isInWishlist = (productId) => {
-    return wishlistItems.some((item) => item.id === productId)
+    setWishlistItems(prevItems =>
+      prevItems.filter(item => item.id !== productId)
+    )
   }
 
   const clearWishlist = () => {
     setWishlistItems([])
+    localStorage.removeItem("fabricWishlist")
   }
 
-  const getWishlistCount = () => {
-    return wishlistItems.length
+  const isInWishlist = (productId) => {
+    return wishlistItems.some(item => item.id === productId)
   }
 
-  const value = {
-    wishlistItems,
-    addToWishlist,
-    removeFromWishlist,
-    isInWishlist,
-    clearWishlist,
-    getWishlistCount,
-  }
+  const getWishlistCount = () => wishlistItems.length
 
-  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>
+  return (
+    <WishlistContext.Provider
+      value={{
+        wishlistItems,
+        addToWishlist,
+        
+        removeFromWishlist,
+        clearWishlist,
+        isInWishlist,
+        getWishlistCount,
+      }}
+    >
+      {children}
+    </WishlistContext.Provider>
+  )
 }

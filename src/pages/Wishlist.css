@@ -63,13 +63,13 @@
   font-size: 0.85rem;
 }
 
-.item-actions {
+.wishlist-item-actions {
   margin-top: 10px;
   display: flex;
   gap: 10px;
 }
 
-.item-actions .remove-btn {
+.wishlist-item-actions .wishlist-remove-btn {
   background: none;
   border: 1px solid #e53e3e;
   padding: 6px 12px;
@@ -78,7 +78,7 @@
   cursor: pointer;
 }
 
-.item-actions .remove-btn:hover {
+.wishlist-item-actions .wishlist-remove-btn:hover {
   background: #e53e3e;
   color: white;
 }
@@ -91,4 +91,10 @@
 .empty-wishlist-icon {
   font-size: 4rem;
   margin-bottom: 20px;
+}
+@media (max-width: 500px) {
+.wishlist-header{
+  display: flex;
+  flex-direction: column;
+}
 }

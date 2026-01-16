@@ -508,7 +508,7 @@ const LookBook = () => {
                   <Link to="/shop" className="btn btn-primary">
                     Shop Similar Fabrics
                   </Link>
-                  <button className="btn btn-outline" onClick={closeModal}>
+                  <button className="btn " onClick={closeModal}>
                     Close
                   </button>
                 </div>
@@ -539,16 +539,16 @@ const LookBook = () => {
               </p>
               <div className="designer-stats">
                 <div className="stat">
-                  <span className="stat-number">3</span>
-                  <span className="stat-label">Collections</span>
+                  <span className="lookbook-stat-number">3</span>
+                  <span className="lookbook-stat-label">Collections</span>
                 </div>
                 <div className="stat">
-                  <span className="stat-number">50+</span>
-                  <span className="stat-label">Pieces Created</span>
+                  <span className="lookbook-stat-number">50+</span>
+                  <span className="lookbook-stat-label">Pieces Created</span>
                 </div>
                 <div className="stat">
-                  <span className="stat-number">2</span>
-                  <span className="stat-label">Years Partnered</span>
+                  <span className="lookbook-stat-number">2</span>
+                  <span className="lookbook-stat-label">Years Partnered</span>
                 </div>
               </div>
             </div>

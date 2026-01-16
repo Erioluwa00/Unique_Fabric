@@ -193,16 +193,6 @@ const About = () => {
                     <h3>Global Community</h3>
                     <p>We celebrate cultural diversity through our international fabric collections.</p>
                   </div>
-                   <div className="value-card">
-                    <div className="value-icon"><FaStar /></div>
-                    <h3>Quality</h3>
-                    <p>Every fabric is carefully curated and tested to meet our high standards of excellence.</p>
-                  </div>
-                   <div className="value-card">
-                    <div className="value-icon"><FaStar /></div>
-                    <h3>Quality</h3>
-                    <p>Every fabric is carefully curated and tested to meet our high standards of excellence.</p>
-                  </div>
                 </div>
               </div>
             )}

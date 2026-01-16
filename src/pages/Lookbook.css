@@ -551,7 +551,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.stat-number {
+.lookbook-stat-number {
   display: block;
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 800;
@@ -560,7 +560,7 @@
   line-height: 1;
 }
 
-.stat-label {
+.lookbook-stat-label {
   font-size: clamp(0.75rem, 2vw, 0.9rem);
   color: #4a5568;
   font-weight: 600;

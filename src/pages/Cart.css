@@ -263,7 +263,7 @@
   gap: 15px;
 }
 
-.continue-shopping {
+.cart-continue-shopping {
   color: #1a365d;
   text-decoration: none;
   font-weight: 500;
@@ -273,7 +273,7 @@
   transition: all 0.2s ease;
 }
 
-.continue-shopping:hover {
+.cart-continue-shopping:hover {
   background-color: #1a365d;
   color: white;
 }
