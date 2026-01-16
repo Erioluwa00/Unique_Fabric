@@ -14,7 +14,7 @@ const AdminContactMessages = () => {
   const fetchContactMessages = async () => {
     try {
             console.log("🔄 Fetching contact messages from API...");
-      const response = await fetch('http://localhost:5000/api/contact/dashboard')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/dashboard`)
       console.log("📡 API Response status:", response.status);
       if (!response.ok) {
         
@@ -41,7 +41,7 @@ const AdminContactMessages = () => {
   const testAPI = async () => {
     try {
       console.log("🧪 Testing API connection...");
-      const response = await fetch('http://localhost:5000/api/contact/dashboard');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/dashboard`);
       console.log("🧪 Test response:", response);
       const data = await response.json();
       console.log("🧪 Test data:", data);

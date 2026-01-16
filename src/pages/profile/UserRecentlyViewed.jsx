@@ -31,7 +31,7 @@ const UserRecentlyViewed = () => {
             if (!productId) return item;
 
             try {
-              const response = await fetch(`http://localhost:5000/api/products/${productId}`);
+              const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${productId}`);
               if (response.ok) {
                 const productData = await response.json();
                 return {

@@ -48,7 +48,7 @@ const Shop = () => {
       try {
         setLoading(true);
         setError("");
-        const response = await fetch('http://localhost:5000/api/products');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -278,7 +278,7 @@ const Shop = () => {
                 <div className="error-actions">
                   <button onClick={retryFetch} className="retry-btn">Retry Connection</button>
                   <p className="error-help">
-                    Make sure your backend server is running on http://localhost:5000
+                    Make sure your backend server is running on ${import.meta.env.VITE_API_URL}
                   </p>
                 </div>
               </div>

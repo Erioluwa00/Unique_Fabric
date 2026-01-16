@@ -596,7 +596,7 @@ const AdminDashboard = () => {
       return;
     }
 
-    const productsResponse = await fetch('http://localhost:5000/api/products', {
+    const productsResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/products`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -626,7 +626,7 @@ const AdminDashboard = () => {
     // Fetch orders - handle permission errors gracefully
     let orders = [];
     try {
-      const ordersResponse = await fetch('http://localhost:5000/api/orders', {
+      const ordersResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -756,7 +756,7 @@ const AdminDashboard = () => {
       const newStock = prompt('Enter new stock quantity:');
       
       if (newStock && !isNaN(newStock)) {
-        const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/products/${productId}`, {
           method: 'PUT',
           headers: { 
             'Content-Type': 'application/json',

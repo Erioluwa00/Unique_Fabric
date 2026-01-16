@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./AdminProductManagement.css";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/products`;
 const CLOUDINARY_UPLOAD_PRESET = "Unique_Fabric"; 
 const CLOUDINARY_CLOUD_NAME = "dy8mxgqzy";
 

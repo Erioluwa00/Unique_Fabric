@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
 
         if (ids.length > 0) {
           // Fetch latest product data from backend
-          const res = await fetch(`http://localhost:5000/api/products/cart`, {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products/cart`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ ids })

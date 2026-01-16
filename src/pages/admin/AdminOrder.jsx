@@ -528,7 +528,7 @@ const AdminOrder = () => {
       setError(null)
       const token = localStorage.getItem('fabricToken')
       
-      const response = await fetch('http://localhost:5000/api/orders', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -616,7 +616,7 @@ const AdminOrder = () => {
     setUpdatingStatus(orderId)
     try {
       const token = localStorage.getItem('fabricToken')
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/orders/${orderId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

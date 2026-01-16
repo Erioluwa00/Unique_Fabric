@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
       if (token && savedUser) {
         try {
           // Verify token with backend
-          const response = await fetch("http://localhost:5000/api/auth/me", {
+          const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

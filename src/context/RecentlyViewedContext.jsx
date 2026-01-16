@@ -29,7 +29,7 @@ export const RecentlyViewedProvider = ({ children }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('fabricToken');
-      const response = await fetch('http://localhost:5000/api/recently-viewed', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recently-viewed`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -55,7 +55,7 @@ export const RecentlyViewedProvider = ({ children }) => {
 
   try {
     const token = localStorage.getItem('fabricToken');
-    const response = await fetch('http://localhost:5000/api/recently-viewed', {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recently-viewed`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@ export const RecentlyViewedProvider = ({ children }) => {
 
     try {
       const token = localStorage.getItem('fabricToken');
-      const response = await fetch('http://localhost:5000/api/recently-viewed', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recently-viewed`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

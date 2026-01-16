@@ -15,7 +15,7 @@ const AdminFullContactMessages = () => {
 
   const fetchAllContactMessages = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/contact')
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`)
       if (!response.ok) {
         throw new Error('Failed to fetch messages')
       }
@@ -36,7 +36,7 @@ const AdminFullContactMessages = () => {
 
   const markAsRead = async (messageId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/contact/${messageId}/read`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${messageId}/read`, {
         method: 'PUT'
       })
       
@@ -65,7 +65,7 @@ const AdminFullContactMessages = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/contact/${messageId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact/${messageId}`, {
         method: 'DELETE'
       })
       
