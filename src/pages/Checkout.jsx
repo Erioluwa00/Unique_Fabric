@@ -7,6 +7,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import ShippingForm from "../components/ShippingForm";
 import PaymentForm from "../components/PaymentForm";
 import OrderReview from "../components/OrderReview";
+import { FaLock, FaShieldAlt, FaUndo } from "react-icons/fa";
 import './Checkout.css';
 
 const Checkout = () => {
@@ -476,20 +477,28 @@ const Checkout = () => {
               </div>
             </div>
 
-            <div className="security-badges">
-              <div className="security-item">
-                <span className="security-icon">🔒</span>
-                <span>Secure SSL Encryption</span>
-              </div>
-              <div className="security-item">
-                <span className="security-icon">🛡</span>
-                <span>100% Secure Checkout</span>
-              </div>
-              <div className="security-item">
-                <span className="security-icon">↩</span>
-                <span>30-Day Return Policy</span>
-              </div>
-            </div>
+             <div className="security-badges">
+      <div className="security-item">
+        <span className="security-icon">
+          <FaLock />
+        </span>
+        <span>Secure SSL Encryption</span>
+      </div>
+
+      <div className="security-item">
+        <span className="security-icon">
+          <FaShieldAlt />
+        </span>
+        <span>100% Secure Checkout</span>
+      </div>
+
+      <div className="security-item">
+        <span className="security-icon">
+          <FaUndo />
+        </span>
+        <span>30-Day Return Policy</span>
+      </div>
+    </div>
           </div>
         </div>
       </div>

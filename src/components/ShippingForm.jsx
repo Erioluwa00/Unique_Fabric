@@ -507,7 +507,7 @@ const ShippingForm = ({
     sameAsShipping: initialBillingData.sameAsShipping !== false,
     fullName: initialBillingData.fullName || '',
     address: initialBillingData.address || '',
-    country: 'Nigeria', // HARDCODED as Nigeria
+    country: 'Nigeria',
     state: initialBillingData.state || '',
     city: initialBillingData.city || '',
     zipCode: initialBillingData.zipCode || '',
@@ -517,7 +517,7 @@ const ShippingForm = ({
   const [countries, setCountries] = useState([]);
   const [states, setStates] = useState([]);
   const [billingStates, setBillingStates] = useState([]);
-  const [postalCodeLabel, setPostalCodeLabel] = useState('Postal Code'); // Default for Nigeria
+  const [postalCodeLabel, setPostalCodeLabel] = useState('Postal Code'); 
   const [billingPostalCodeLabel, setBillingPostalCodeLabel] = useState('Postal Code');
   const [isInitialized, setIsInitialized] = useState(false);
 
