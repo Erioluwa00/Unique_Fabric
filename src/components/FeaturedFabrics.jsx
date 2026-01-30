@@ -217,7 +217,7 @@ const FeaturedFabrics = () => {
                         inWishlist ? "Remove from wishlist" : "Add to wishlist"
                       }
                     >
-                      {inWishlist ? "❤️" : "🤍"}
+                      {inWishlist ?<FaHeart style={{ color: "red", marginTop:"5px" }} /> : <FaHeart style={ { color: "grey", marginTop:"5px" } } />}
                     </button>
                     <button
                       className="quick-view"

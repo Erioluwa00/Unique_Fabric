@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { WishlistContext } from "../context/WishlistContext"
 import { CartContext } from "../context/CartContext"
 import './Wishlist.css'
+import { FaHeart } from "react-icons/fa"
 
 const Wishlist = () => {
   const { wishlistItems, removeFromWishlist, clearWishlist } = useContext(WishlistContext)
@@ -18,7 +19,7 @@ const Wishlist = () => {
       <div className="empty-wishlist">
         <div className="container">
           <div className="empty-wishlist-content">
-            <div className="empty-wishlist-icon">❤️</div>
+            <div className="empty-wishlist-icon"><FaHeart style={{ color: "red", marginTop:"5px" }} /></div>
             <h2>Your wishlist is empty</h2>
             <p>Save your favorite fabrics here for easy access later.</p>
             <Link to="/shop" className="btn btn-primary">

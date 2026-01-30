@@ -99,19 +99,19 @@ const About = () => {
         <div className="container">
           <div className="about-tab-navigation">
             <button
-              className={`tab-btn ${activeTab === 'story' ? 'active' : ''}`}
+              className={`about-tab-btn ${activeTab === 'story' ? 'active' : ''}`}
               onClick={() => setActiveTab('story')}
             >
               Our Story
             </button>
             <button
-              className={`tab-btn ${activeTab === 'mission' ? 'active' : ''}`}
+              className={`about-tab-btn ${activeTab === 'mission' ? 'active' : ''}`}
               onClick={() => setActiveTab('mission')}
             >
               Our Mission
             </button>
             <button
-              className={`tab-btn ${activeTab === 'values' ? 'active' : ''}`}
+              className={`about-tab-btn ${activeTab === 'values' ? 'active' : ''}`}
               onClick={() => setActiveTab('values')}
             >
               Our Values
